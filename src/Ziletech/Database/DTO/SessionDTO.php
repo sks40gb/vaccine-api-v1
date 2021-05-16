@@ -5,7 +5,6 @@ namespace Ziletech\Database\DTO;
 use DateTime;
 use Ziletech\Database\Entity\Center;
 use Ziletech\Database\Entity\Session;
-use Ziletech\Database\Entity\Slot;
 
 class SessionDTO {
 
@@ -30,7 +29,7 @@ class SessionDTO {
     public $availableCapacityDose2;
 
     /**
-     * @var string
+     * @var DateTime
      */
     public $date;
 
@@ -62,7 +61,7 @@ class SessionDTO {
     public $center;
 
     /**
-     * @var Slot[]
+     * @var string[]
      */
     public $slots = [];
 
@@ -97,6 +96,160 @@ class SessionDTO {
         $session->setCreatedAt($this->createdAt);
         $session->setClosedAt($this->closedAt);
         $session->setCenter($this->center);
+    }
+
+    /**
+     * @return string
+     */
+    public function getSessionId(): string {
+        return $this->sessionId;
+    }
+
+    /**
+     * @param string $sessionId
+     */
+    public function setSessionId(string $sessionId): void {
+        $this->sessionId = $sessionId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAvailableCapacity(): int {
+        return $this->availableCapacity;
+    }
+
+    /**
+     * @param int $availableCapacity
+     */
+    public function setAvailableCapacity(int $availableCapacity): void {
+        $this->availableCapacity = $availableCapacity;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAvailableCapacityDose1(): int {
+        return $this->availableCapacityDose1;
+    }
+
+    /**
+     * @param int $availableCapacityDose1
+     */
+    public function setAvailableCapacityDose1(int $availableCapacityDose1): void {
+        $this->availableCapacityDose1 = $availableCapacityDose1;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAvailableCapacityDose2(): int {
+        return $this->availableCapacityDose2;
+    }
+
+    /**
+     * @param int $availableCapacityDose2
+     */
+    public function setAvailableCapacityDose2(int $availableCapacityDose2): void {
+        $this->availableCapacityDose2 = $availableCapacityDose2;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getDate(): DateTime {
+        return $this->date;
+    }
+
+    /**
+     * @param DateTime $date
+     */
+    public function setDate(DateTime $date): void {
+        $this->date = $date;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMinAgeLimit(): int {
+        return $this->minAgeLimit;
+    }
+
+    /**
+     * @param int $minAgeLimit
+     */
+    public function setMinAgeLimit(int $minAgeLimit): void {
+        $this->minAgeLimit = $minAgeLimit;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVaccine(): string {
+        return $this->vaccine;
+    }
+
+    /**
+     * @param string $vaccine
+     */
+    public function setVaccine(string $vaccine): void {
+        $this->vaccine = $vaccine;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt(): DateTime {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     */
+    public function setCreatedAt(DateTime $createdAt): void {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getClosedAt(): DateTime {
+        return $this->closedAt;
+    }
+
+    /**
+     * @param DateTime $closedAt
+     */
+    public function setClosedAt(DateTime $closedAt): void {
+        $this->closedAt = $closedAt;
+    }
+
+    /**
+     * @return Center
+     */
+    public function getCenter(): Center {
+        return $this->center;
+    }
+
+    /**
+     * @param Center $center
+     */
+    public function setCenter(Center $center): void {
+        $this->center = $center;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getSlots(): array {
+        return $this->slots;
+    }
+
+    /**
+     * @param string[] $slots
+     */
+    public function setSlots(array $slots): void {
+        $this->slots = $slots;
     }
 
 }

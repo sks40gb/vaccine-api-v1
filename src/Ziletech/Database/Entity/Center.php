@@ -29,16 +29,16 @@ class Center extends BaseEntity {
     /** @Column(type="string", name="fee_type") * */
     protected $feeType;
 
-    /** @Column(type="string", name="from") * */
+    /** @Column(type="string", name="time_from") * */
     protected $from;
 
-    /** @Column(type="string", name="to") * */
+    /** @Column(type="string", name="time_to") * */
     protected $to;
 
-    /** @Column(type="integer", name="lat") * */
+    /** @Column(type="integer", name="location_lat") * */
     protected $lat;
 
-    /** @Column(type="integer", name="long") * */
+    /** @Column(type="integer", name="location_long") * */
     protected $long;
 
     /** @Column(type="integer", name="pincode") * */

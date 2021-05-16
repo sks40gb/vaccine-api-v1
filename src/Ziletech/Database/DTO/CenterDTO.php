@@ -265,17 +265,32 @@ class CenterDTO {
     }
 
     /**
-     * @return array
+     * @return string
+     */
+    public function getName(): string {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void {
+        $this->name = $name;
+    }
+
+    /**
+     * @return SessionDTO[]
      */
     public function getSessions(): array {
         return $this->sessions;
     }
 
     /**
-     * @param array $sessions
+     * @param SessionDTO[] $sessions
      */
     public function setSessions(array $sessions): void {
         $this->sessions = $sessions;
     }
+
 
 }

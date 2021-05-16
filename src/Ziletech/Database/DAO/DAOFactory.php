@@ -31,4 +31,16 @@ class DAOFactory {
         return new GenericCodeDAO($this->entityManager);
     }
 
+    public function getCenterDAO(): CenterDAO {
+        return new CenterDAO($this->entityManager);
+    }
+
+    public function getSessionDAO(): SessionDAO {
+        return new SessionDAO($this->entityManager);
+    }
+
+    public function getSlotDAO(): SlotDAO {
+        return new SlotDAO($this->entityManager);
+    }
+
 }

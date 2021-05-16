@@ -9,4 +9,20 @@ class CentersDTO {
      */
     public $centers = [];
 
+    /**
+     * @return CenterDTO[]
+     */
+    public function getCenters(): array {
+        return $this->centers;
+    }
+
+    /**
+     * @param CenterDTO[] $centers
+     */
+    public function setCenters(array $centers): void {
+        $this->centers = $centers;
+    }
+
+
+
 }

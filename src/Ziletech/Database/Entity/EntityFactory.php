@@ -33,4 +33,16 @@ class EntityFactory {
         return new CodeType();
     }
 
+    public static function getCenter(): Center {
+        return new Center();
+    }
+
+    public static function getSession(): Session {
+        return new Session();
+    }
+
+    public static function getSlot(): Slot {
+        return new Slot();
+    }
+
 }

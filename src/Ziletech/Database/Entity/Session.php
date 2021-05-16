@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * */
 class Session extends BaseEntity {
 
-    /** @Id @Column(type="string", name="session_id) * */
+    /** @Id @Column(type="string", name="session_id") * */
     protected $sessionId;
 
     /** @Column(type="integer", name="available_capacity") * */
@@ -50,6 +50,7 @@ class Session extends BaseEntity {
 
     function __construct() {
         $this->slots = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     /**

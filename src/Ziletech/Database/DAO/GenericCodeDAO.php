@@ -11,7 +11,7 @@ class GenericCodeDAO extends BaseDAO {
         parent::__construct($entityManager, GenericCode::class);
     }
 
-    public function getByCode($code): GenericCode {
+    public function getByCode($code): ?GenericCode {
         return $this->get(["code" => $code]);
     }
 
