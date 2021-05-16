@@ -9,6 +9,11 @@ use Ziletech\Database\Entity\Session;
 class SessionDTO {
 
     /**
+     * @var integer
+     */
+    public $id;
+
+    /**
      * @var string
      */
     public $sessionId;
@@ -56,6 +61,11 @@ class SessionDTO {
     public $closedAt;
 
     /**
+     * @var boolean
+     */
+    public $closed;
+
+    /**
      * @var Center
      */
     public $center;
@@ -73,6 +83,7 @@ class SessionDTO {
     }
 
     public function copyFromDomain(Session $session) {
+        $this->id = $session->getId();
         $this->sessionId = $session->getSessionId();
         $this->availableCapacity = $session->getAvailableCapacity();
         $this->availableCapacityDose1 = $session->getAvailableCapacityDose1();
@@ -83,9 +94,11 @@ class SessionDTO {
         $this->createdAt = $session->getCreatedAt();
         $this->closedAt = $session->getClosedAt();
         $this->center = $session->getCenter();
+        $this->closed = $session->getClosed();
     }
 
     public function copyToDomain(Session $session) {
+        $session->setId($this->id);
         $session->setSessionId($this->sessionId);
         $session->setAvailableCapacity($this->availableCapacity);
         $session->setAvailableCapacityDose1($this->availableCapacityDose1);
@@ -96,6 +109,7 @@ class SessionDTO {
         $session->setCreatedAt($this->createdAt);
         $session->setClosedAt($this->closedAt);
         $session->setCenter($this->center);
+        $session->setClosed($this->closed);
     }
 
     /**
@@ -251,5 +265,34 @@ class SessionDTO {
     public function setSlots(array $slots): void {
         $this->slots = $slots;
     }
+
+    /**
+     * @return int
+     */
+    public function getId(): int {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void {
+        $this->id = $id;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isClosed(): bool {
+        return $this->closed;
+    }
+
+    /**
+     * @param bool $closed
+     */
+    public function setClosed(bool $closed): void {
+        $this->closed = $closed;
+    }
+
 
 }

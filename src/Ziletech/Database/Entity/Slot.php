@@ -16,7 +16,7 @@ class Slot extends BaseEntity {
 
     /**
      * @ManyToOne(targetEntity="Session")
-     * @JoinColumn(name="session_id", referencedColumnName="session_id")
+     * @JoinColumn(name="session_id", referencedColumnName="id")
      */
     protected $session;
 

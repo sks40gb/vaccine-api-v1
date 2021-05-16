@@ -10,7 +10,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * */
 class Session extends BaseEntity {
 
-    /** @Id @Column(type="string", name="session_id") * */
+    /** @Id @Column(type="integer") @GeneratedValue * */
+    protected $id;
+
+    /** @Column(type="string", name="session_id") * */
     protected $sessionId;
 
     /** @Column(type="integer", name="available_capacity") * */
@@ -54,6 +57,20 @@ class Session extends BaseEntity {
     function __construct() {
         $this->slots = new ArrayCollection();
         $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void {
+        $this->id = $id;
     }
 
     /**
