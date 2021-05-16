@@ -1,0 +1,598 @@
+{
+	"info": {
+		"_postman_id": "27bde51b-3ace-4f55-bb63-bb63d399bb40",
+		"name": "php-api-skeleton",
+		"description": "Ziletech HRM REST API documentation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"sunil\"\r\n}"
+						},
+						"url": {
+							"raw": "{{APIURL}}/api/auth/sign-in?XDEBUG_SESSION_START=PHPSTORM",
+							"host": [
+								"{{APIURL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"sign-in"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "PHPSTORM"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Auth Password Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"sks.256@gmail.com\"\r\n}"
+						},
+						"url": {
+							"raw": "{{APIURL}}/api/auth/request-pass?XDEBUG_SESSION_START=PHPSTORM",
+							"host": [
+								"{{APIURL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"request-pass"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "PHPSTORM"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Auth Password Reset",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\":\"sunil\",\n\t\"confirmPassword\":\"sunil\",\n\t\"reset_password_token\":\"JsY7lhQp_NkwcgEjo3aE5WAduHCzztJDYGK8l1HFH8s\"\n\t\n}"
+						},
+						"url": {
+							"raw": "{{APIURL}}/api/auth/reset-pass",
+							"host": [
+								"{{APIURL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"reset-pass"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Generic Code",
+			"item": [
+				{
+					"name": "Generic Code by Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{APIURL}}/api/admin/generic-code/6?XDEBUG_SESSION_START=PHPSTORM",
+							"host": [
+								"{{APIURL}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"generic-code",
+								"6"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "PHPSTORM"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generic Code find",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n \n\"codeType\": {\"id\": 1}\n\n}"
+						},
+						"url": {
+							"raw": "{{APIURL}}/api/admin/generic-code/find",
+							"host": [
+								"{{APIURL}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"generic-code",
+								"find"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generic Code update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n\t\"id\":6,\n   \"codeType\":{  \n      \"id\":5\n   },\n   \"code\":\"IN\",\n   \"description\":\"INDIA\"\n}"
+						},
+						"url": {
+							"raw": "{{APIURL}}/api/admin/generic-code/",
+							"host": [
+								"{{APIURL}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"generic-code",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generic Code save",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n   \"codeType\":{  \n      \"id\":5\n   },\n   \"code\":\"TEST 05 May 2022\",\n   \"description\":\"TEST 05 May 2022 desc\"\n}"
+						},
+						"url": {
+							"raw": "{{APIURL}}/api/admin/generic-code/",
+							"host": [
+								"{{APIURL}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"generic-code",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Common",
+			"item": [
+				{
+					"name": "Dropdown",
+					"item": [
+						{
+							"name": "Generic Code Common",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"code\":\"COUNTRY\"}"
+								},
+								"url": {
+									"raw": "{{APIURL}}/api/dropdown/common",
+									"host": [
+										"{{APIURL}}"
+									],
+									"path": [
+										"api",
+										"dropdown",
+										"common"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Dropdown by Code",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzYzODE3MzksImV4cCI6MTUzNjM4ODkzOSwianRpIjoia2lXNkRmbEp6K0t4eDNaY2s3ODRNZz09IiwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0Iiwic3ViIjpudWxsfQ.EH3mM-FLGKUVfHovQg84DJH94PGaEQ1ipwJBaR6WvMc",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{APIURL}}/api/dropdown/type/COUNTRY",
+									"host": [
+										"{{APIURL}}"
+									],
+									"path": [
+										"api",
+										"dropdown",
+										"type",
+										"COUNTRY"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Dropdown by Code Type",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzYzODE3MzksImV4cCI6MTUzNjM4ODkzOSwianRpIjoia2lXNkRmbEp6K0t4eDNaY2s3ODRNZz09IiwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0Iiwic3ViIjpudWxsfQ.EH3mM-FLGKUVfHovQg84DJH94PGaEQ1ipwJBaR6WvMc",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{APIURL}}/api/dropdown/codetype/COUNTRY",
+									"host": [
+										"{{APIURL}}"
+									],
+									"path": [
+										"api",
+										"dropdown",
+										"codetype",
+										"COUNTRY"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Dropdown - By Table and Column",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzYzODE3MzksImV4cCI6MTUzNjM4ODkzOSwianRpIjoia2lXNkRmbEp6K0t4eDNaY2s3ODRNZz09IiwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0Iiwic3ViIjpudWxsfQ.EH3mM-FLGKUVfHovQg84DJH94PGaEQ1ipwJBaR6WvMc",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{APIURL}}/api/dropdown/type/COUNTRY",
+									"host": [
+										"{{APIURL}}"
+									],
+									"path": [
+										"api",
+										"dropdown",
+										"type",
+										"COUNTRY"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "File",
+					"item": [
+						{
+							"name": "File Upload",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "file",
+									"file": {
+										"src": "/C:/Users/Sunil/Downloads/sunilkumarsingh.com.txt"
+									}
+								},
+								"url": {
+									"raw": "{{APIURL}}/api/file/upload",
+									"host": [
+										"{{APIURL}}"
+									],
+									"path": [
+										"api",
+										"file",
+										"upload"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "File Download",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzYzODE3MzksImV4cCI6MTUzNjM4ODkzOSwianRpIjoia2lXNkRmbEp6K0t4eDNaY2s3ODRNZz09IiwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0Iiwic3ViIjpudWxsfQ.EH3mM-FLGKUVfHovQg84DJH94PGaEQ1ipwJBaR6WvMc",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{APIURL}}/api/file/download/33",
+									"host": [
+										"{{APIURL}}"
+									],
+									"path": [
+										"api",
+										"file",
+										"download",
+										"33"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Autocompleter",
+					"item": [
+						{
+							"name": "Autocompleter - By Table and Column",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzYzODE3MzksImV4cCI6MTUzNjM4ODkzOSwianRpIjoia2lXNkRmbEp6K0t4eDNaY2s3ODRNZz09IiwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0Iiwic3ViIjpudWxsfQ.EH3mM-FLGKUVfHovQg84DJH94PGaEQ1ipwJBaR6WvMc",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{APIURL}}/api/autocompleter/table/user/email/sks.256@gmail.com",
+									"host": [
+										"{{APIURL}}"
+									],
+									"path": [
+										"api",
+										"autocompleter",
+										"table",
+										"user",
+										"email",
+										"sks.256@gmail.com"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "APIURL",
+			"value": "http://localhost/hrm-api-v1"
+		},
+		{
+			"key": "CURRENT_USER_PASSWORD",
+			"value": "jakejake"
+		},
+		{
+			"key": "Authorization",
+			"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzY2NDExMjcsImV4cCI6MTUzNjY0ODMyNywianRpIjoiYTNrTGtNdHduZFwvNDhRV1hjeFNzN3c9PSIsImlzcyI6Imh0dHA6XC9cL2xvY2FsaG9zdCIsInN1YiI6IlN1bmlsIn0.iC8HeKuEOgr3LJBPwlnj2h5bnPj67rCJzFwhxHx_c9c"
+		}
+	]
+}
