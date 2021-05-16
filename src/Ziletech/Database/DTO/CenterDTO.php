@@ -2,153 +2,280 @@
 
 namespace Ziletech\Database\DTO;
 
-use Ziletech\Database\Entity\CodeType;
+use Ziletech\Database\Entity\Center;
 
-class SessionDTO {
+class CenterDTO {
 
     /**
      * @var integer
      */
-    public $id;
+    public $centerId;
 
     /**
      * @var string
      */
-    public $description;
+    public $address;
 
     /**
      * @var string
      */
-    public $label1;
+    public $name;
 
     /**
      * @var string
      */
-    public $label2;
+    public $blockName;
 
     /**
      * @var string
      */
-    public $label3;
+    public $districtName;
 
     /**
      * @var string
      */
-    public $label4;
+    public $feeType;
 
     /**
      * @var string
      */
-    public $label5;
+    public $from;
 
     /**
      * @var string
      */
-    public $label6;
-    protected $genericCodes = [];
+    public $to;
 
-    public function __construct(CodeType $codeType = null) {
-        if (isset($codeType)) {
-            $this->copyFromDomain($codeType);
+    /**
+     * @var integer
+     */
+    public $lat;
+
+    /**
+     * @var integer
+     */
+    public $long;
+
+    /**
+     * @var integer
+     */
+    public $pinCode;
+
+    /**
+     * @var string
+     */
+    public $stateName;
+
+    /**
+     * @var SessionDTO[]
+     */
+    public $sessions = [];
+
+    public function __construct(Center $center = null) {
+        if (isset($center)) {
+            $this->copyFromDomain($center);
         }
     }
 
     /**
-     * 
-     * @param type $codeType
+     * @param Center $center
      */
-    public function copyFromDomain($codeType) {
-        $this->id = $codeType->getId();
-        $this->description = $codeType->getDescription();
-        $this->label1 = $codeType->getLabel1();
-        $this->label2 = $codeType->getLabel2();
-        $this->label3 = $codeType->getLabel3();
-        $this->label4 = $codeType->getLabel4();
-        $this->label5 = $codeType->getLabel5();
-        $this->label6 = $codeType->getLabel6();
+    public function copyFromDomain(Center $center) {
+        $this->centerId = $center->getCenterId();
+        $this->name = $center->getName();
+        $this->address = $center->getAddress();
+        $this->blockName = $center->getBlockName();
+        $this->districtName = $center->getDistrictName();
+        $this->feeType = $center->getFeeType();
+        $this->from = $center->getFrom();
+        $this->to = $center->getTo();
+        $this->lat = $center->getLat();
+        $this->long = $center->getLong();
+        $this->pinCode = $center->getPinCode();
+        $this->stateName = $center->getStateName();
     }
 
-    public function copyToDomain($codeType) {
-        $codeType->id = $this->id;
-        $codeType->description = $this->description;
-        $codeType->label1 = $this->label1;
-        $codeType->label2 = $this->label2;
-        $codeType->label3 = $this->label3;
-        $codeType->label4 = $this->label4;
-        $codeType->label5 = $this->label5;
-        $codeType->label6 = $this->label6;
+    public function copyToDomain(Center $center) {
+        $center->setCenterId($this->centerId);
+        $center->setName($this->name);
+        $center->setAddress($this->address);
+        $center->setBlockName($this->blockName);
+        $center->setDistrictName($this->districtName);
+        $center->setFeeType($this->feeType);
+        $center->setFrom($this->from);
+        $center->setTo($this->to);
+        $center->setLat($this->lat);
+        $center->setLong($this->long);
+        $center->setPinCode($this->pinCode);
+        $center->setStateName($this->stateName);
     }
 
-    function getId() {
-        return $this->id;
+    /**
+     * @return int
+     */
+    public function getCenterId(): int {
+        return $this->centerId;
     }
 
-    function getDescription() {
-        return $this->description;
+    /**
+     * @param int $centerId
+     */
+    public function setCenterId(int $centerId): void {
+        $this->centerId = $centerId;
     }
 
-    function getLabel1() {
-        return $this->label1;
+    /**
+     * @return string
+     */
+    public function getAddress(): string {
+        return $this->address;
     }
 
-    function getLabel2() {
-        return $this->label2;
+    /**
+     * @param string $address
+     */
+    public function setAddress(string $address): void {
+        $this->address = $address;
     }
 
-    function getLabel3() {
-        return $this->label3;
+    /**
+     * @return string
+     */
+    public function getBlockName(): string {
+        return $this->blockName;
     }
 
-    function getLabel4() {
-        return $this->label4;
+    /**
+     * @param string $blockName
+     */
+    public function setBlockName(string $blockName): void {
+        $this->blockName = $blockName;
     }
 
-    function getLabel5() {
-        return $this->label5;
+    /**
+     * @return string
+     */
+    public function getDistrictName(): string {
+        return $this->districtName;
     }
 
-    function getLabel6() {
-        return $this->label6;
+    /**
+     * @param string $districtName
+     */
+    public function setDistrictName(string $districtName): void {
+        $this->districtName = $districtName;
     }
 
-    function getGenericCodes() {
-        return $this->genericCodes;
+    /**
+     * @return string
+     */
+    public function getFeeType(): string {
+        return $this->feeType;
     }
 
-    function setId($id) {
-        $this->id = $id;
+    /**
+     * @param string $feeType
+     */
+    public function setFeeType(string $feeType): void {
+        $this->feeType = $feeType;
     }
 
-    function setDescription($description) {
-        $this->description = $description;
+    /**
+     * @return string
+     */
+    public function getFrom(): string {
+        return $this->from;
     }
 
-    function setLabel1($label1) {
-        $this->label1 = $label1;
+    /**
+     * @param string $from
+     */
+    public function setFrom(string $from): void {
+        $this->from = $from;
     }
 
-    function setLabel2($label2) {
-        $this->label2 = $label2;
+    /**
+     * @return string
+     */
+    public function getTo(): string {
+        return $this->to;
     }
 
-    function setLabel3($label3) {
-        $this->label3 = $label3;
+    /**
+     * @param string $to
+     */
+    public function setTo(string $to): void {
+        $this->to = $to;
     }
 
-    function setLabel4($label4) {
-        $this->label4 = $label4;
+    /**
+     * @return int
+     */
+    public function getLat(): int {
+        return $this->lat;
     }
 
-    function setLabel5($label5) {
-        $this->label5 = $label5;
+    /**
+     * @param int $lat
+     */
+    public function setLat(int $lat): void {
+        $this->lat = $lat;
     }
 
-    function setLabel6($label6) {
-        $this->label6 = $label6;
+    /**
+     * @return int
+     */
+    public function getLong(): int {
+        return $this->long;
     }
 
-    function setGenericCodes($genericCodes) {
-        $this->genericCodes = $genericCodes;
+    /**
+     * @param int $long
+     */
+    public function setLong(int $long): void {
+        $this->long = $long;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPinCode(): int {
+        return $this->pinCode;
+    }
+
+    /**
+     * @param int $pinCode
+     */
+    public function setPinCode(int $pinCode): void {
+        $this->pinCode = $pinCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStateName(): string {
+        return $this->stateName;
+    }
+
+    /**
+     * @param string $stateName
+     */
+    public function setStateName(string $stateName): void {
+        $this->stateName = $stateName;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSessions(): array {
+        return $this->sessions;
+    }
+
+    /**
+     * @param array $sessions
+     */
+    public function setSessions(array $sessions): void {
+        $this->sessions = $sessions;
     }
 
 }

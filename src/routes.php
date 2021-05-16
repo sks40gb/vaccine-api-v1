@@ -7,7 +7,7 @@ use Ziletech\Controllers\AuthController;
 use Ziletech\Controllers\AutocompleterController;
 use Ziletech\Controllers\DropdownController;
 use Ziletech\Controllers\FileController;
-use Ziletech\Controllers\GenericCodeController;
+use Ziletech\Controllers\CenterController;
 use Ziletech\Controllers\RegisterController;
 use Ziletech\Controllers\SettingController;
 use Ziletech\Controllers\UserController;
@@ -40,11 +40,11 @@ $app->group('/api', function () use ($app) {
         $this->post('/register', RegisterController::class . ':registerAndActivate');
 
         // Generic Code
-        $this->get('/generic-code/{id}', GenericCodeController ::class . ':get');
-        $this->post('/generic-code/find', GenericCodeController ::class . ':find');
-        $this->post('/generic-code', GenericCodeController ::class . ':save');
-        $this->put('/generic-code', GenericCodeController ::class . ':update');
-        $this->delete('/generic-code/{id}', GenericCodeController ::class . ':remove');
+        $this->get('/generic-code/{id}', CenterController ::class . ':get');
+        $this->post('/generic-code/find', CenterController ::class . ':find');
+        $this->post('/generic-code', CenterController ::class . ':save');
+        $this->put('/generic-code', CenterController ::class . ':update');
+        $this->delete('/generic-code/{id}', CenterController ::class . ':remove');
 
     })->add($adminAuth)->add($userAuth);
 
@@ -78,6 +78,8 @@ $app->group('/api', function () use ($app) {
         $this->put('/user', UserController ::class . ':update');
         $this->get('/user/profile', UserController ::class . ':myProfile');
         $this->get('/auth/current/refresh', AuthController::class . ':refreshCurrentUser');
+
+        $this->post('/center', CenterController::class . ':save');
 
     })->add($userAuth);
 

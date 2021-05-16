@@ -17,6 +17,9 @@ class Center extends BaseEntity {
     /** @Column(type="string", name="address") * */
     protected $address;
 
+    /** @Column(type="string", name="name") * */
+    protected $name;
+
     /** @Column(type="string", name="block_name") * */
     protected $blockName;
 
@@ -201,6 +204,19 @@ class Center extends BaseEntity {
         $this->stateName = $stateName;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getName() {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name): void {
+        $this->name = $name;
+    }
 
     public function __toString() {
         return "Center[id: $this->centerId]";

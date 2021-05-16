@@ -2,6 +2,7 @@
 
 namespace Ziletech\Database\DTO;
 
+use Ziletech\Database\Entity\Center;
 use Ziletech\Database\Entity\GenericCode;
 
 class DTOFactory {
@@ -36,6 +37,18 @@ class DTOFactory {
      */
     public static function getGenericCodeDTO(?GenericCode $genericCode): GenericCodeDTO {
         return new GenericCodeDTO($genericCode);
+    }
+
+    /**
+     * @param Center|null $center
+     * @return CenterDTO
+     */
+    public static function getCenterDTO(?Center $center): CenterDTO {
+        return new CenterDTO($center);
+    }
+
+    public static function getCentersDTO(): CentersDTO {
+        return new CentersDTO();
     }
 
     public static function getCodeTypeDTO(): CodeTypeDTO {

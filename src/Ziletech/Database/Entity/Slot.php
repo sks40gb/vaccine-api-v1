@@ -66,7 +66,7 @@ class Slot extends BaseEntity {
     }
 
 
-    public function __toString() {
+    public function __toString(): string {
         return "Slot[id: $this->id]";
     }
 
