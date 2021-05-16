@@ -20,7 +20,7 @@ class MatchesPassword extends AbstractRule {
         $this->password = $password;
     }
 
-    public function validate($input) {
+    public function validate($input): bool {
         return password_verify($input, $this->password);
     }
 

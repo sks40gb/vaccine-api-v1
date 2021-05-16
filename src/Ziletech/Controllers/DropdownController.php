@@ -4,7 +4,6 @@ namespace Ziletech\Controllers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Ziletech\Controllers\BaseController;
 use Ziletech\Database\DAO\Property;
 use Ziletech\Database\DTO\DTOFactory;
 use Ziletech\Services\Common\DropdownService;

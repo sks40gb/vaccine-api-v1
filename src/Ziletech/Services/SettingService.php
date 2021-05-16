@@ -16,7 +16,7 @@ class SettingService {
         $this->daoFactory = $daoFactory;
     }
 
-    public function getSetting($type) {
+    public function getSetting($type): array {
         $codeType = $this->daoFactory->getCodeTypeDAO()->getByCode($type);
         if ($codeType == null) {
             throw new ZiletechException("Code Type $type does not exist.");

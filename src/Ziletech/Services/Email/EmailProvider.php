@@ -18,5 +18,3 @@ interface EmailProvider {
 
     function getPassword();
 }
-
-?>

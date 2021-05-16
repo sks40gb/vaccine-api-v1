@@ -21,18 +21,7 @@ class UserDTO extends BaseDTO {
     public $image;
     public $password;
     public $inactive;
-    public $ifscCode;
-    public $accountNo;
-    public $branchName;
-    public $bankName;
-    public $panNumber;
     public $address;
-
-    /**
-     *
-     * @var UserBalanceDTO
-     */
-    public $balance;
 
     /**
      *
@@ -74,11 +63,6 @@ class UserDTO extends BaseDTO {
     public $resetPasswordToken;
 
     /**
-     * @var boolean
-     */
-    public $pStatus;
-
-    /**
      * @var DateTime
      */
     public $createdAt;
@@ -94,63 +78,14 @@ class UserDTO extends BaseDTO {
     public $loginTime;
 
     /**
-     *
-     * @var UserDTO 
-     */
-    public $owner;
-
-    /**
-     * UserDTO[]
-     */
-    public $referralList;
-
-    /**
-     * @var PlanDTO
-     */
-    public $plan;
-
-    /**
      * @var RoleDTO
      */
     public $role;
 
     /**
      *
-     * @var DepositDTO[]
-     */
-    public $depositList;
-
-    /**
-     *
-     * @var PaymentLogDTO[]
-     */
-    public $paymentLogList;
-
-    /**
-     *
-     * @var SupportDTO[]
-     */
-    public $SupportList;
-
-    /**
-     *
-     * @var TransactionDTO[]
-     */
-    public $transactionList;
-
-    /**
-     *
      * @var UserLoginDTO[]
      */
-    public $userLoginsList;
-
-    /**
-     *
-     * @var WithdrawLogDTO[]
-     */
-    public $withdrawLogsList;
-    //only for front end 
-    public $planName;
 
     public function __construct(User $user = null) {
         if (isset($user)) {
@@ -170,13 +105,7 @@ class UserDTO extends BaseDTO {
         $this->image = $user->image;
         $this->createdAt = $user->createdAt;
         $this->status = $user->status;
-        $this->panNumber = $user->panNumber;
-        $this->bankName = $user->bankName;
-        $this->branchName = $user->branchName;
-        $this->accountNo = $user->accountNo;
-        $this->ifscCode = $user->ifscCode;
         $this->address = $user->address;
-        $this->referralId = $user->referralId;
     }
 
     public function copyToDomain($user) {
@@ -194,335 +123,332 @@ class UserDTO extends BaseDTO {
         $user->status = $this->status;
         $user->rememberToken = $this->rememberToken;
         $user->referralId = $this->referralId;
-        $user->pStatus = $this->pStatus;
         $user->loginTime = $this->loginTime;
         $user->createdAt = $this->createdAt;
-        $user->panNumber = $this->panNumber;
-        $user->bankName = $this->bankName;
-        $user->branchName = $this->branchName;
-        $user->accountNo = $this->accountNo;
-        $user->ifscCode = $this->ifscCode;
         $user->address = $this->address;
     }
 
-    function getId() {
+    /**
+     * @return int
+     */
+    public function getId(): int {
         return $this->id;
     }
 
-    function getReferralId() {
-        return $this->referralId;
-    }
-
-    function setReferralId($referralId) {
-        $this->referralId = $referralId;
-    }
-
-    function getName() {
-        return $this->name;
-    }
-
-    function getUserName() {
-        return $this->userName;
-    }
-
-    function getEmail() {
-        return $this->email;
-    }
-
-    function getPhone() {
-        return $this->phone;
-    }
-
-    function getDob() {
-        return $this->dob;
-    }
-
-    function getGender() {
-        return $this->gender;
-    }
-
-    function getCountry() {
-        return $this->country;
-    }
-
-    function getImage() {
-        return $this->image;
-    }
-
-    function getPassword() {
-        return $this->password;
-    }
-
-    function getInactive() {
-        return $this->inactive;
-    }
-
-    function getBalance(): UserBalanceDTO {
-        return $this->balance;
-    }
-
-    function getProfilePic(): FileDTO {
-        return $this->profilePic;
-    }
-
-    function getEmailVerify() {
-        return $this->emailVerify;
-    }
-
-    function getPhoneVerify() {
-        return $this->phoneVerify;
-    }
-
-    function getStatus() {
-        return $this->status;
-    }
-
-    function getRememberToken() {
-        return $this->rememberToken;
-    }
-
-    function getResetPasswordToken() {
-        return $this->resetPasswordToken;
-    }
-
-    function getPStatus() {
-        return $this->pStatus;
-    }
-
-    function getCreatedAt(): DateTime {
-        return $this->createdAt;
-    }
-
-    function getUpdatedAt(): DateTime {
-        return $this->updatedAt;
-    }
-
-    function getLoginTime(): DateTime {
-        return $this->loginTime;
-    }
-
-    function getPlan(): ?PlanDTO {
-        return $this->plan;
-    }
-
-    function getRole(): RoleDTO {
-        return $this->role;
-    }
-
-    function getDepositList(): array {
-        return $this->depositList;
-    }
-
-    function getPaymentLogList(): array {
-        return $this->paymentLogList;
-    }
-
-    function getSupportList(): array {
-        return $this->SupportList;
-    }
-
-    function getTransactionList(): array {
-        return $this->transactionList;
-    }
-
-    function getUserLoginsList(): array {
-        return $this->userLoginsList;
-    }
-
-    function getWithdrawLogsList(): array {
-        return $this->withdrawLogsList;
-    }
-
-    function getPlanName() {
-        return $this->planName;
-    }
-
-    function setId($id) {
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void {
         $this->id = $id;
     }
 
-    function setName($name) {
+    /**
+     * @return mixed
+     */
+    public function getName() {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name): void {
         $this->name = $name;
     }
 
-    function setUserName($userName) {
+    /**
+     * @return mixed
+     */
+    public function getUserName() {
+        return $this->userName;
+    }
+
+    /**
+     * @param mixed $userName
+     */
+    public function setUserName($userName): void {
         $this->userName = $userName;
     }
 
-    function setEmail($email) {
+    /**
+     * @return mixed
+     */
+    public function getEmail() {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email): void {
         $this->email = $email;
     }
 
-    function setPhone($phone) {
+    /**
+     * @return mixed
+     */
+    public function getPhone() {
+        return $this->phone;
+    }
+
+    /**
+     * @param mixed $phone
+     */
+    public function setPhone($phone): void {
         $this->phone = $phone;
     }
 
-    function setDob($dob) {
+    /**
+     * @return mixed
+     */
+    public function getDob() {
+        return $this->dob;
+    }
+
+    /**
+     * @param mixed $dob
+     */
+    public function setDob($dob): void {
         $this->dob = $dob;
     }
 
-    function setGender($gender) {
+    /**
+     * @return mixed
+     */
+    public function getGender() {
+        return $this->gender;
+    }
+
+    /**
+     * @param mixed $gender
+     */
+    public function setGender($gender): void {
         $this->gender = $gender;
     }
 
-    function setCountry($country) {
+    /**
+     * @return mixed
+     */
+    public function getCountry() {
+        return $this->country;
+    }
+
+    /**
+     * @param mixed $country
+     */
+    public function setCountry($country): void {
         $this->country = $country;
     }
 
-    function setImage($image) {
+    /**
+     * @return mixed
+     */
+    public function getImage() {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image): void {
         $this->image = $image;
     }
 
-    function setPassword($password) {
+    /**
+     * @return mixed
+     */
+    public function getPassword() {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password): void {
         $this->password = $password;
     }
 
-    function setInactive($inactive) {
+    /**
+     * @return mixed
+     */
+    public function getInactive() {
+        return $this->inactive;
+    }
+
+    /**
+     * @param mixed $inactive
+     */
+    public function setInactive($inactive): void {
         $this->inactive = $inactive;
     }
 
-    function setBalance(?UserBalanceDTO $balance) {
-        $this->balance = $balance;
-    }
-
-    function setProfilePic(?FileDTO $profilePic) {
-        $this->profilePic = $profilePic;
-    }
-
-    function setEmailVerify($emailVerify) {
-        $this->emailVerify = $emailVerify;
-    }
-
-    function setPhoneVerify($phoneVerify) {
-        $this->phoneVerify = $phoneVerify;
-    }
-
-    function setStatus($status) {
-        $this->status = $status;
-    }
-
-    function setRememberToken($rememberToken) {
-        $this->rememberToken = $rememberToken;
-    }
-
-    function setResetPasswordToken($resetPasswordToken) {
-        $this->resetPasswordToken = $resetPasswordToken;
-    }
-
-    function setPStatus($pStatus) {
-        $this->pStatus = $pStatus;
-    }
-
-    function setCreatedAt(DateTime $createdAt) {
-        $this->createdAt = $createdAt;
-    }
-
-    function setUpdatedAt(DateTime $updatedAt = null) {
-        $this->updatedAt = $updatedAt;
-    }
-
-    function setLoginTime(DateTime $loginTime = null) {
-        $this->loginTime = $loginTime;
-    }
-
-    function setPlan(PlanDTO $plan = null) {
-        $this->plan = $plan;
-    }
-
-    function setRole(RoleDTO $role) {
-        $this->role = $role;
-    }
-
-    function setDepositList(array $depositList = null) {
-        $this->depositList = $depositList;
-    }
-
-    function setPaymentLogList(array $paymentLogList = null) {
-        $this->paymentLogList = $paymentLogList;
-    }
-
-    function setSupportList(array $SupportList = null) {
-        $this->SupportList = $SupportList;
-    }
-
-    function setTransactionList(array $transactionList = null) {
-        $this->transactionList = $transactionList;
-    }
-
-    function setUserLoginsList(array $userLoginsList = null) {
-        $this->userLoginsList = $userLoginsList;
-    }
-
-    function setWithdrawLogsList(array $withdrawLogsList = null) {
-        $this->withdrawLogsList = $withdrawLogsList;
-    }
-
-    function setPlanName($planName) {
-        $this->planName = $planName;
-    }
-
-    function getReferralList() {
-        return $this->referralList;
-    }
-
-    function setReferralList($referralList) {
-        $this->referralList = $referralList;
-    }
-
-    function getOwner(): ?UserDTO {
-        return $this->owner;
-    }
-
-    function setOwner(?UserDTO $owner) {
-        $this->owner = $owner;
-    }
-
-    function getIfscCode() {
-        return $this->ifscCode;
-    }
-
-    function getAccountNo() {
-        return $this->accountNo;
-    }
-
-    function getBranchName() {
-        return $this->branchName;
-    }
-
-    function getBankName() {
-        return $this->bankName;
-    }
-
-    function getPanNumber() {
-        return $this->panNumber;
-    }
-
-    function setIfscCode($ifscCode) {
-        $this->ifscCode = $ifscCode;
-    }
-
-    function setAccountNo($accountNo) {
-        $this->accountNo = $accountNo;
-    }
-
-    function setBranchName($branchName) {
-        $this->branchName = $branchName;
-    }
-
-    function setBankName($bankName) {
-        $this->bankName = $bankName;
-    }
-
-    function setPanNumber($panNumber) {
-        $this->panNumber = $panNumber;
-    }
-
-    function getAddress() {
+    /**
+     * @return mixed
+     */
+    public function getAddress() {
         return $this->address;
     }
 
-    function setAddress($address) {
+    /**
+     * @param mixed $address
+     */
+    public function setAddress($address): void {
         $this->address = $address;
     }
+
+    /**
+     * @return FileDTO
+     */
+    public function getProfilePic(): FileDTO {
+        return $this->profilePic;
+    }
+
+    /**
+     * @param FileDTO $profilePic
+     */
+    public function setProfilePic(FileDTO $profilePic): void {
+        $this->profilePic = $profilePic;
+    }
+
+    /**
+     * @return int
+     */
+    public function getEmailVerify(): int {
+        return $this->emailVerify;
+    }
+
+    /**
+     * @param int $emailVerify
+     */
+    public function setEmailVerify(int $emailVerify): void {
+        $this->emailVerify = $emailVerify;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPhoneVerify(): int {
+        return $this->phoneVerify;
+    }
+
+    /**
+     * @param int $phoneVerify
+     */
+    public function setPhoneVerify(int $phoneVerify): void {
+        $this->phoneVerify = $phoneVerify;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus(): int {
+        return $this->status;
+    }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus(int $status): void {
+        $this->status = $status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRememberToken(): string {
+        return $this->rememberToken;
+    }
+
+    /**
+     * @param string $rememberToken
+     */
+    public function setRememberToken(string $rememberToken): void {
+        $this->rememberToken = $rememberToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReferralId(): string {
+        return $this->referralId;
+    }
+
+    /**
+     * @param string $referralId
+     */
+    public function setReferralId(string $referralId): void {
+        $this->referralId = $referralId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResetPasswordToken(): string {
+        return $this->resetPasswordToken;
+    }
+
+    /**
+     * @param string $resetPasswordToken
+     */
+    public function setResetPasswordToken(string $resetPasswordToken): void {
+        $this->resetPasswordToken = $resetPasswordToken;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt(): DateTime {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     */
+    public function setCreatedAt(DateTime $createdAt): void {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt(): DateTime {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     */
+    public function setUpdatedAt(DateTime $updatedAt): void {
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getLoginTime(): DateTime {
+        return $this->loginTime;
+    }
+
+    /**
+     * @param DateTime $loginTime
+     */
+    public function setLoginTime(DateTime $loginTime): void {
+        $this->loginTime = $loginTime;
+    }
+
+    /**
+     * @return RoleDTO
+     */
+    public function getRole(): RoleDTO {
+        return $this->role;
+    }
+
+    /**
+     * @param RoleDTO $role
+     */
+    public function setRole(RoleDTO $role): void {
+        $this->role = $role;
+    }
+
 
 }

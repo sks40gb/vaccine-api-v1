@@ -20,12 +20,11 @@ class DBSmsProvider implements SmsProvider {
     public function getSmsUrl() {
         return $this->getValue("SMS_URL");
     }
-    
+
     public function getSmsApi() {
         return $this->getValue("SMS_API");
     }
 
-   
 
     private function getValue($code) {
         $gc = $this->daoFactory->getGenericCodeDAO()->getByCodeTypeAndCode(CodeTypeConstant::SMS_CONFIG, $code);
@@ -36,5 +35,3 @@ class DBSmsProvider implements SmsProvider {
     }
 
 }
-
-?>

@@ -4,7 +4,7 @@ namespace Ziletech\Util;
 
 class NumberUtil {
 
-    function generateNumber($input, $pad_len = 7, $prefix = null) {
+    function generateNumber($input, $pad_len = 7, $prefix = null): string {
         if ($pad_len <= strlen($input))
             trigger_error('<strong>$pad_len</strong> cannot be less than or equal to the length of <strong>$input</strong> to generate invoice number', E_USER_ERROR);
 

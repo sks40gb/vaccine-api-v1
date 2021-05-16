@@ -14,8 +14,7 @@ class UrlUtil {
             )
         );
         $context = stream_context_create($opts);
-        $content = file_get_contents($url, false, $context);
-        return $content;
+        return file_get_contents($url, false, $context);
     }
     
     public static function formPost($url, $data) {

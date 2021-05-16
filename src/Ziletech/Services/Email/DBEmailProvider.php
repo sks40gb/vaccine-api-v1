@@ -54,5 +54,3 @@ class DBEmailProvider implements EmailProvider {
     }
 
 }
-
-?>

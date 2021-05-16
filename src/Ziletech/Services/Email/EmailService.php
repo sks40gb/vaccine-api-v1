@@ -43,7 +43,7 @@ class EmailService {
                 $mail->AddAddress($email);
             }
             //@TODO need to configureable
-            $mail->SetFrom($this->emailProvider->getUsername(), 'Alkarightworld Alert');
+            $mail->SetFrom($this->emailProvider->getUsername(), 'Sunil Alert');
             //$mail->AddReplyTo(getenv("EMAIL_EMAIL"), '');
             $mail->Subject = $subject;
             $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!'; // optional - MsgHTML will create an alternate automatically
@@ -60,9 +60,8 @@ class EmailService {
             echo $e->getMessage(); //Boring error messages from anything else!
             return false;
         }
-      
+        return false;
+
     }
 
 }
-
-?>

@@ -31,7 +31,7 @@ class ExistsWhenUpdate extends AbstractRule {
         $this->id = $id;
     }
 
-    public function validate($input) {
+    public function validate($input): bool {
         $filters = array(Property::getInstance($this->column, $input), Property::getInstance("id", $this->id, Operator::NOT_EQUAL));
         $rows = $this->dao->filter($filters);
         return sizeof($rows) == 0;

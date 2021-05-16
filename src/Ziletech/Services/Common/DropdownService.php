@@ -16,27 +16,21 @@ class DropdownService {
         $this->daoFactory = $daoFactory;
     }
 
-    public function getByCode($code) {
+    public function getByCode($code): array {
         switch ($code) {
-            case "PLAN":return $this->getPlans();
-            case "USERS":return $this->getUsers();
-            case "CATEGORY":return $this->getCategory();
-            case "USER_NAME":return $this->getUserNameList();
-            case "COUNTRY":return $this->getCountries();
-            case "USER_STATUS":return $this->getUserStatus();
-            default :"Invalid Dropdown code ";
+            case "USERS":
+                return $this->getUsers();
+            case "USER_NAME":
+                return $this->getUserNameList();
+            case "COUNTRY":
+                return $this->getCountries();
+            case "USER_STATUS":
+                return $this->getUserStatus();
+            default :
+                throw new \Exception("Invalid Dropdown code ");
         }
     }
 
-    private function getPlans() {
-        $plans = $this->daoFactory->getPlanDAO()->findAll();
-        $items = $this->getArrayWithEmpyItem();
-        foreach ($plans as $plan) {
-            $model = new KeyValue($plan->getId(), $plan->getName() . " -- " . $plan->getPrice() . " INR" . "-- BV " . $plan->getBusinessVolume());
-            array_push($items, $model);
-        }
-        return $items;
-    }
 
     private function getUsers() {
         $users = $this->daoFactory->getUserDAO()->findAll();
@@ -48,7 +42,7 @@ class DropdownService {
         return $items;
     }
 
-    private function getUserNameList() {
+    private function getUserNameList(): array {
         $users = $this->daoFactory->getUserDAO()->findAll();
         $items = $this->getArrayWithEmpyItem();
         foreach ($users as $user) {
@@ -58,7 +52,7 @@ class DropdownService {
         return $items;
     }
 
-    private function getUserStatus() {
+    private function getUserStatus(): array {
         $statusList = array();
         array_push($statusList, new KeyValue(StatusType::USER_ACTIVE, "ACTIVETED USER"));
         array_push($statusList, new KeyValue(StatusType::USER_DEACTIVE, "BLOCKED USER"));
@@ -66,15 +60,7 @@ class DropdownService {
         return $statusList;
     }
 
-    private function getCategory() {
-        $list = array();
-        array_push($list, new KeyValue("banner", "banner"));
-        array_push($list, new KeyValue("gallary", "gallary"));
-	    array_push($list, new KeyValue("legal", "legal"));
-        return $list;
-    }
-
-    private function getCountries() {
+    private function getCountries(): array {
         $codeTypeCountry = $this->daoFactory->getCodeTypeDAO()->getByCode("COUNTRY");
         $items = $this->getArrayWithEmpyItem();
         foreach ($codeTypeCountry->getGenericCodes() as $country) {
@@ -84,7 +70,7 @@ class DropdownService {
         return $items;
     }
 
-    private function getArrayWithEmpyItem() {
+    private function getArrayWithEmpyItem(): array {
         $items = array();
         $model = new KeyValue("", "-- Select --");
         array_push($items, $model);

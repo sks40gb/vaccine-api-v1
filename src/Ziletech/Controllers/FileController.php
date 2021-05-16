@@ -35,17 +35,17 @@ class FileController extends BaseController {
             // create a Stream object, to stream your file to the client
             $body = new Stream($file->getData());
             return $response
-                            ->withHeader('Content-Type', $file->getContentType())
-                            ->withHeader(
-                                    'Content-Disposition', "attachment; filename=" . basename($fileName)
-                            )
-                            ->withHeader('Content-Transfer-Encoding', 'Binary')
-                            ->withHeader('Content-Description', 'File Transfer')
-                            ->withHeader('Pragma', 'public')
-                            ->withHeader('Expires', '0')
-                            ->withHeader('Cache-Control', 'must-revalidate')
-                            ->withBody($body)
-                            ->withHeader('Content-Length', "{$file->getSize()}");
+                ->withHeader('Content-Type', $file->getContentType())
+                ->withHeader(
+                    'Content-Disposition', "attachment; filename=" . basename($fileName)
+                )
+                ->withHeader('Content-Transfer-Encoding', 'Binary')
+                ->withHeader('Content-Description', 'File Transfer')
+                ->withHeader('Pragma', 'public')
+                ->withHeader('Expires', '0')
+                ->withHeader('Cache-Control', 'must-revalidate')
+                ->withBody($body)
+                ->withHeader('Content-Length', "{$file->getSize()}");
         }
     }
 

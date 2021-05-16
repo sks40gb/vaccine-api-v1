@@ -18,7 +18,6 @@ class UserModel {
     public $role;
     public $profilePic;
     public $token;
-    public $referralLink;
     public $status;
 
     /**
@@ -119,14 +118,6 @@ class UserModel {
 
     function setToken($token) {
         $this->token = $token;
-    }
-
-    function getReferralLink() {
-        return $this->referralLink;
-    }
-
-    function setReferralLink($referralLink) {
-        $this->referralLink = $referralLink;
     }
 
     function getCreatedAt(): DateTime {

@@ -2,6 +2,7 @@
 
 namespace Ziletech\Validation;
 
+use Exception;
 use Psr\Http\Message\ServerRequestInterface;
 use Respect\Validation\Exceptions\NestedValidationException;
 
@@ -13,12 +14,13 @@ class Validator {
     /**
      * Validate request params based on provided rules and fields
      *
-     * @param \Psr\Http\Message\ServerRequestInterface $request
-     * @param array                                    $rules
+     * @param ServerRequestInterface $request
+     * @param array $rules
      *
      * @return static
+     * @throws Exception
      */
-    public function validate(ServerRequestInterface $request, array $rules) {
+    public function validate(ServerRequestInterface $request, array $rules): Validator {
         /** @var \Respect\Validation\Validator $rule */
         foreach ($rules as $field => $rule) {
             try {
@@ -40,8 +42,9 @@ class Validator {
      * @param array $rules
      *
      * @return static
+     * @throws Exception
      */
-    public function validateArray(array $values, array $rules) {
+    public function validateArray(array $values, array $rules): Validator {
         /** @var \Respect\Validation\Validator $rule */
         foreach ($rules as $field => $rule) {
             try {
@@ -61,7 +64,7 @@ class Validator {
      *
      * @return bool
      */
-    public function failed() {
+    public function failed(): bool {
         return !empty($this->errors);
     }
 
@@ -70,7 +73,7 @@ class Validator {
      *
      * @return array
      */
-    public function getErrors() {
+    public function getErrors(): array {
         return $this->errors;
     }
 

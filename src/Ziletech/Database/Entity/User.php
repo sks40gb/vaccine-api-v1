@@ -3,7 +3,8 @@
 namespace Ziletech\Database\Entity;
 
 /**
- * @Entity @Table(name="user")
+ * @Entity
+ * @Table(name="user")
  * */
 class User extends BaseEntity {
 
@@ -43,26 +44,8 @@ class User extends BaseEntity {
     /** @Column(type="datetime", name="activation_date") * */
     protected $activationDate;
 
-    /** @Column(type="datetime", name="updated_at") * */
-    protected $updatedAt;
-
-    /** @Column(type="string", name="ev_code") * */
-    protected $emailVerifyCode;
-
-    /** @Column(type="datetime", name="ev_time") * */
-    protected $emailVerifyTime;
-
-    /** @Column(type="string", name="pv_code") * */
-    protected $phoneVerifyCode;
-
-    /** @Column(type="datetime", name="pv_time") * */
-    protected $phoneVerifyTime;
-
-    /** @Column(type="integer", name="email_verify") * */
-    protected $emailVerify;
-
-    /** @Column(type="integer", name="phone_verify") * */
-    protected $phoneVerify;
+    /** @Column(type="datetime", name="login_time") * */
+    protected $loginTime;
 
     /** @Column(type="integer", name="status") * */
     protected $status;
@@ -73,32 +56,14 @@ class User extends BaseEntity {
     /** @Column(type="string", name="reset_password_token") * */
     protected $resetPasswordToken;
 
-    /** @Column(type="string", name="referral_id") * */
-    protected $referralId;
-
-    /** @Column(type="string", name="ifsc_code") * */
-    protected $ifscCode;
-
-    /** @Column(type="string", name="account_no") * */
-    protected $accountNo;
-
-    /** @Column(type="string", name="branch_name") * */
-    protected $branchName;
-
-    /** @Column(type="string", name="bank_name") * */
-    protected $bankName;
-
-    /** @Column(type="string", name="pan_number") * */
-    protected $panNumber;
+    /**
+     * @ManyToOne(targetEntity="Role")
+     * @JoinColumn(name="role_id", referencedColumnName="id")
+     */
+    protected $role;
 
     /** @Column(type="string", name="address") * */
     protected $address;
-
-    /** @Column(type="integer", name="p_status") * */
-    protected $pStatus;
-
-    /** @Column(type="datetime", name="login_time") * */
-    protected $loginTime;
 
     /**
      * @ManyToOne(targetEntity="File")
@@ -106,426 +71,274 @@ class User extends BaseEntity {
      */
     protected $profilePic;
 
-    /**
-     * @OneToMany(targetEntity="Deposit", mappedBy="user" , orphanRemoval=true)
-     */
-    protected $depositList;
-
-    /**
-     * @OneToMany(targetEntity="PaymentLog", mappedBy="member" , orphanRemoval=true)
-     */
-    protected $paymentLogList;
-
-    /**
-     * @OneToMany(targetEntity="Support", mappedBy="user" , orphanRemoval=true)
-     */
-    protected $supportList;
-
-    /**
-     * @OneToMany(targetEntity="Transaction", mappedBy="user" , orphanRemoval=true)
-     */
-    protected $transactionList;
-
-    /**
-     * @OneToMany(targetEntity="UserLogin", mappedBy="user" , orphanRemoval=true)
-     */
-    protected $userLoginsList;
-
-    /**
-     * @OneToMany(targetEntity="Withdraw", mappedBy="user" , orphanRemoval=true)
-     */
-    protected $withdrawLogsList;
-
-    /**
-     * @OneToOne(targetEntity="Plan")
-     * @JoinColumn(name="plan_id", referencedColumnName="id")
-     */
-    private $plan;
-
-    /**
-     * @OneToMany(targetEntity="SupportMessage", mappedBy="user" , orphanRemoval=true)
-     */
-    protected $supportMessagesList;
-
-    /**
-     * @ManyToOne(targetEntity="Role")
-     * @JoinColumn(name="role_id", referencedColumnName="id")
-     */
-    protected $role;
-
-    /**
-     * @ManyToOne(targetEntity="User")
-     * @JoinColumn(name="owner_id", referencedColumnName="id")
-     */
-    protected $owner;
-
-    /**
-     * @OneToMany(targetEntity="User", mappedBy="owner")
-     */
-    protected $referralList;
-
-    /**
-     * @OneToOne(targetEntity="UserBalance", mappedBy="user", orphanRemoval=true)
-     */
-    protected $balance;
-
     function __construct() {
-        $this->emailVerify = 0;
-        $this->phoneVerify = 0;
         $this->status = 0;
-        $this->pStatus = false;
     }
 
-    function getId() {
+    /**
+     * @return mixed
+     */
+    public function getId() {
         return $this->id;
     }
 
-    function getName() {
-        return $this->name;
-    }
-
-    function getUserName() {
-        return $this->userName;
-    }
-
-    function getPassword() {
-        return $this->password;
-    }
-
-    function getPhone() {
-        return $this->phone;
-    }
-
-    function getEmail() {
-        return $this->email;
-    }
-
-    function getDob() {
-        return $this->dob;
-    }
-
-    function getGender() {
-        return $this->gender;
-    }
-
-    function getCountry() {
-        return $this->country;
-    }
-
-    function getImage() {
-        return $this->image;
-    }
-
-    function getCreatedAt() {
-        return $this->createdAt;
-    }
-
-    function getUpdatedAt() {
-        return $this->updatedAt;
-    }
-
-    function getEmailVerifyCode() {
-        return $this->emailVerifyCode;
-    }
-
-    function getEmailVerifyTime() {
-        return $this->emailVerifyTime;
-    }
-
-    function getPhoneVerifyCode() {
-        return $this->phoneVerifyCode;
-    }
-
-    function getPhoneVerifyTime() {
-        return $this->phoneVerifyTime;
-    }
-
-    function getEmailVerify() {
-        return $this->emailVerify;
-    }
-
-    function getPhoneVerify() {
-        return $this->phoneVerify;
-    }
-
-    function getStatus() {
-        return $this->status;
-    }
-
-    function getRememberToken() {
-        return $this->rememberToken;
-    }
-
-    function getPStatus() {
-        return $this->pStatus;
-    }
-
-    function getLoginTime() {
-        return $this->loginTime;
-    }
-
-    function getDepositList() {
-        return $this->depositList;
-    }
-
-    function getPaymentLogList() {
-        return $this->paymentLogList;
-    }
-
-    function getSupportList() {
-        return $this->supportList;
-    }
-
-    function getUserLoginsList() {
-        return $this->userLoginsList;
-    }
-
-    function getWithdrawLogsList() {
-        return $this->withdrawLogsList;
-    }
-
-    function getPlan() {
-        return $this->plan;
-    }
-
-    function setId($id) {
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void {
         $this->id = $id;
     }
 
-    function setName($name) {
+    /**
+     * @return mixed
+     */
+    public function getName() {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name): void {
         $this->name = $name;
     }
 
-    function setUserName($userName) {
+    /**
+     * @return mixed
+     */
+    public function getUserName() {
+        return $this->userName;
+    }
+
+    /**
+     * @param mixed $userName
+     */
+    public function setUserName($userName): void {
         $this->userName = $userName;
     }
 
-    function setPassword($password) {
+    /**
+     * @return mixed
+     */
+    public function getPassword() {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password): void {
         $this->password = $password;
     }
 
-    function setPhone($phone) {
+    /**
+     * @return mixed
+     */
+    public function getPhone() {
+        return $this->phone;
+    }
+
+    /**
+     * @param mixed $phone
+     */
+    public function setPhone($phone): void {
         $this->phone = $phone;
     }
 
-    function setEmail($email) {
+    /**
+     * @return mixed
+     */
+    public function getEmail() {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email): void {
         $this->email = $email;
     }
 
-    function setDob($dob) {
+    /**
+     * @return mixed
+     */
+    public function getDob() {
+        return $this->dob;
+    }
+
+    /**
+     * @param mixed $dob
+     */
+    public function setDob($dob): void {
         $this->dob = $dob;
     }
 
-    function setGender($gender) {
+    /**
+     * @return mixed
+     */
+    public function getGender() {
+        return $this->gender;
+    }
+
+    /**
+     * @param mixed $gender
+     */
+    public function setGender($gender): void {
         $this->gender = $gender;
     }
 
-    function setCountry($country) {
+    /**
+     * @return mixed
+     */
+    public function getCountry() {
+        return $this->country;
+    }
+
+    /**
+     * @param mixed $country
+     */
+    public function setCountry($country): void {
         $this->country = $country;
     }
 
-    function setImage($image) {
+    /**
+     * @return mixed
+     */
+    public function getImage() {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image): void {
         $this->image = $image;
     }
 
-    function setCreatedAt($createdAt) {
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt() {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt): void {
         $this->createdAt = $createdAt;
     }
 
-    function setUpdatedAt($updatedAt) {
-        $this->updatedAt = $updatedAt;
+    /**
+     * @return mixed
+     */
+    public function getLoginTime() {
+        return $this->loginTime;
     }
 
-    function setEmailVerifyCode($emailVerifyCode) {
-        $this->emailVerifyCode = $emailVerifyCode;
-    }
-
-    function setEmailVerifyTime($emailVerifyTime) {
-        $this->emailVerifyTime = $emailVerifyTime;
-    }
-
-    function setPhoneVerifyCode($phoneVerifyCode) {
-        $this->phoneVerifyCode = $phoneVerifyCode;
-    }
-
-    function setPhoneVerifyTime($phoneVerifyTime) {
-        $this->phoneVerifyTime = $phoneVerifyTime;
-    }
-
-    function setEmailVerify($emailVerify) {
-        $this->emailVerify = $emailVerify;
-    }
-
-    function setPhoneVerify($phoneVerify) {
-        $this->phoneVerify = $phoneVerify;
-    }
-
-    function setStatus($status) {
-        $this->status = $status;
-    }
-
-    function setRememberToken($rememberToken) {
-        $this->rememberToken = $rememberToken;
-    }
-
-    function setPStatus($pStatus) {
-        $this->pStatus = $pStatus;
-    }
-
-    function setLoginTime($loginTime) {
+    /**
+     * @param mixed $loginTime
+     */
+    public function setLoginTime($loginTime): void {
         $this->loginTime = $loginTime;
     }
 
-    function setDepositList($depositList) {
-        $this->depositList = $depositList;
+    /**
+     * @return int
+     */
+    public function getStatus(): int {
+        return $this->status;
     }
 
-    function setPaymentLogList($paymentLogList) {
-        $this->paymentLogList = $paymentLogList;
+    /**
+     * @param int $status
+     */
+    public function setStatus(int $status): void {
+        $this->status = $status;
     }
 
-    function setSupportList($supportList) {
-        $this->supportList = $supportList;
+    /**
+     * @return mixed
+     */
+    public function getRememberToken() {
+        return $this->rememberToken;
     }
 
-    function setUserLoginsList($userLoginsList) {
-        $this->userLoginsList = $userLoginsList;
+    /**
+     * @param mixed $rememberToken
+     */
+    public function setRememberToken($rememberToken): void {
+        $this->rememberToken = $rememberToken;
     }
 
-    function setWithdrawLogsList($withdrawLogsList) {
-        $this->withdrawLogsList = $withdrawLogsList;
-    }
-
-    function setPlan($plan) {
-        $this->plan = $plan;
-    }
-
-    function getProfilePic() {
-        return $this->profilePic;
-    }
-
-    function setProfilePic($profilePic) {
-        $this->profilePic = $profilePic;
-    }
-
-    function getSupportMessagesList() {
-        return $this->supportMessagesList;
-    }
-
-    function setSupportMessagesList($supportMessagesList) {
-        $this->supportMessagesList = $supportMessagesList;
-    }
-
-    function getTransactionList() {
-        return $this->transactionList;
-    }
-
-    function setTransactionList($transactionList) {
-        $this->transactionList = $transactionList;
-    }
-
-    function getRole() {
-        return $this->role;
-    }
-
-    function setRole($role) {
-        $this->role = $role;
-    }
-
-    function getBalance(): ?UserBalance {
-        return $this->balance;
-    }
-
-    function setBalance(?UserBalance $balance) {
-        $this->balance = $balance;
-    }
-
-    function getResetPasswordToken() {
+    /**
+     * @return mixed
+     */
+    public function getResetPasswordToken() {
         return $this->resetPasswordToken;
     }
 
-    function setResetPasswordToken($resetPasswordToken) {
+    /**
+     * @param mixed $resetPasswordToken
+     */
+    public function setResetPasswordToken($resetPasswordToken): void {
         $this->resetPasswordToken = $resetPasswordToken;
     }
 
-    function getSponsor() {
-        return $this->sponsor;
+    /**
+     * @return mixed
+     */
+    public function getRole() {
+        return $this->role;
     }
 
-    function getReferralList() {
-        return $this->referralList;
+    /**
+     * @param mixed $role
+     */
+    public function setRole($role): void {
+        $this->role = $role;
     }
 
-    function getOwner() {
-        return $this->owner;
+    /**
+     * @return mixed
+     */
+    public function getProfilePic() {
+        return $this->profilePic;
     }
 
-    function setOwner($owner) {
-        $this->owner = $owner;
+    /**
+     * @param mixed $profilePic
+     */
+    public function setProfilePic($profilePic): void {
+        $this->profilePic = $profilePic;
     }
 
-    function getReferralId() {
-        return $this->referralId;
-    }
-
-    function setReferralId($referralId) {
-        $this->referralId = $referralId;
-    }
-
-    function getActivationDate() {
-        return $this->activationDate;
-    }
-
-    function setActivationDate($activationDate) {
-        $this->activationDate = $activationDate;
-    }
-
-    function getIfscCode() {
-        return $this->ifscCode;
-    }
-
-    function getAccountNo() {
-        return $this->accountNo;
-    }
-
-    function getBranchName() {
-        return $this->branchName;
-    }
-
-    function getBankName() {
-        return $this->bankName;
-    }
-
-    function getPanNumber() {
-        return $this->panNumber;
-    }
-
-    function setIfscCode($ifscCode) {
-        $this->ifscCode = $ifscCode;
-    }
-
-    function setAccountNo($accountNo) {
-        $this->accountNo = $accountNo;
-    }
-
-    function setBranchName($branchName) {
-        $this->branchName = $branchName;
-    }
-
-    function setBankName($bankName) {
-        $this->bankName = $bankName;
-    }
-
-    function setPanNumber($panNumber) {
-        $this->panNumber = $panNumber;
-    }
-
-    function getAddress() {
+    /**
+     * @return mixed
+     */
+    public function getAddress() {
         return $this->address;
     }
 
-    function setAddress($address) {
+    /**
+     * @param mixed $address
+     */
+    public function setAddress($address): void {
         $this->address = $address;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActivationDate() {
+        return $this->activationDate;
+    }
+
+    /**
+     * @param mixed $activationDate
+     */
+    public function setActivationDate($activationDate): void {
+        $this->activationDate = $activationDate;
     }
 
     public function __toString() {

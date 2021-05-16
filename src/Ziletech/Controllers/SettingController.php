@@ -15,12 +15,12 @@ class SettingController extends BaseController {
         $this->settingService = new SettingService($this->daoFactory);
     }
 
-    public function get(Request $request, Response $response, array $args) {
+    public function get(Request $request, Response $response, array $args): Response {
         $type = $request->getAttribute("type");
         return $response->withJson($this->settingService->getSetting($type));
     }
 
-    public function update(Request $request, Response $response, array $args) {
+    public function update(Request $request, Response $response, array $args): Response {
         $type = $request->getAttribute("type");
         $settings = $request->getParsedBody();
         return $response->withJson($this->settingService->updateSetting($type,$settings ));
