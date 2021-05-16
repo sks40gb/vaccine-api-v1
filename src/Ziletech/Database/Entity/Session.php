@@ -35,7 +35,10 @@ class Session extends BaseEntity {
     protected $createdAt;
 
     /** @Column(type="datetime", name="closed_at") * */
-    protected $closed_at;
+    protected $closedAt;
+
+    /** @Column(type="boolean", name="closed") * */
+    protected $closed;
 
     /**
      * @ManyToOne(targetEntity="Center")
@@ -169,14 +172,14 @@ class Session extends BaseEntity {
      * @return mixed
      */
     public function getClosedAt() {
-        return $this->closed_at;
+        return $this->closedAt;
     }
 
     /**
-     * @param mixed $closed_at
+     * @param mixed $closedAt
      */
-    public function setClosedAt($closed_at): void {
-        $this->closed_at = $closed_at;
+    public function setClosedAt($closedAt): void {
+        $this->closedAt = $closedAt;
     }
 
     /**
@@ -207,6 +210,19 @@ class Session extends BaseEntity {
         $this->slots = $slots;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getClosed() {
+        return $this->closed;
+    }
+
+    /**
+     * @param mixed $closed
+     */
+    public function setClosed($closed): void {
+        $this->closed = $closed;
+    }
 
     public function __toString() {
         return "Session[id: $this->sessionId]";

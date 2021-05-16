@@ -15,4 +15,9 @@ class SessionDAO extends BaseDAO {
         return $this->get(["sessionId" => $sessionId]);
     }
 
+
+    public function findOpenedSessions($sessionId): array {
+        return $this->find(["sessionId" => $sessionId, "closed" => false]);
+    }
+
 }

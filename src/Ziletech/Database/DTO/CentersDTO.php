@@ -9,6 +9,8 @@ class CentersDTO {
      */
     public $centers = [];
 
+    public $XDEBUG_SESSION_START;
+
     /**
      * @return CenterDTO[]
      */
@@ -22,7 +24,6 @@ class CentersDTO {
     public function setCenters(array $centers): void {
         $this->centers = $centers;
     }
-
 
 
 }
