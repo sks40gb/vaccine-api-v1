@@ -5,6 +5,7 @@ namespace Ziletech\Controllers;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Ziletech\Database\DTO\CenterDTO;
+use Ziletech\Database\DTO\CentersDTO;
 use Ziletech\Database\DTO\DTOFactory;
 use Ziletech\Database\DTO\DTOMapper;
 use Ziletech\Database\DTO\SessionDTO;
@@ -18,11 +19,23 @@ class CenterController extends BaseController {
         $param = $request->getParams();
         $mapper = new DTOMapper();
         $centersDTO = $mapper->map($param, DTOFactory::getCentersDTO());
-        $this->saveCenter($centersDTO);
+        $this->saveCenters($centersDTO);
         return $response->withJson($centersDTO);
     }
 
-    private function saveSession(Center $center, CenterDTO $centerDTO): void {
+    public function saveCenters(CentersDTO $centersDTO): void {
+        foreach ($centersDTO->getCenters() as $centerDTO) {
+            $center = $this->daoFactory->getCenterDAO()->getByCenterId($centerDTO->getCenterId());
+            if ($center == null) {
+                $center = EntityFactory::getCenter();
+                $centerDTO->copyToDomain($center);
+                $center = $this->daoFactory->getCenterDAO()->save($center);
+            }
+            $this->saveSessions($center, $centerDTO);
+        }
+    }
+
+    private function saveSessions(Center $center, CenterDTO $centerDTO): void {
         foreach ($centerDTO->getSessions() as $sessionDTO) {
             $session = $this->daoFactory->getSessionDAO()->getBySessionId($sessionDTO->getSessionId());
             if ($session == null) {
@@ -31,12 +44,12 @@ class CenterController extends BaseController {
                 $session->setCenter($center);
                 $session->setCreatedAt(new \DateTime());
                 $this->daoFactory->getSessionDAO()->save($session);
-                $this->saveSlot($session, $sessionDTO);
+                $this->saveSlots($session, $sessionDTO);
             }
         }
     }
 
-    private function saveSlot(Session $session, SessionDTO $sessionDTO): void {
+    private function saveSlots(Session $session, SessionDTO $sessionDTO): void {
         foreach ($sessionDTO->getSlots() as $time){
             $slot = EntityFactory::getSlot();
             $slot->setSession($session);
@@ -45,19 +58,4 @@ class CenterController extends BaseController {
         }
     }
 
-    /**
-     * @param object $centersDTO
-     */
-    public function saveCenter(object $centersDTO): void {
-        foreach ($centersDTO->getCenters() as $centerDTO) {
-            $center = $this->daoFactory->getCenterDAO()->getByCenterId($centerDTO->getCenterId());
-            if ($center == null) {
-                $center = EntityFactory::getCenter();
-                $centerDTO->copyToDomain($center);
-                $center = $this->daoFactory->getCenterDAO()->save($center);
-            }
-            $this->saveSession($center, $centerDTO);
-
-        }
-    }
 }
