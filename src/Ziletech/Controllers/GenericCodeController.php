@@ -22,7 +22,7 @@ class GenericCodeController extends BaseController {
 
     public function getById($id) {
         $genericCode = $this->daoFactory->getGenericCodeDAO()->findById($id);
-        $genericCodeDTO = DTOFactory::getGenericCodeDTO();
+        $genericCodeDTO = DTOFactory::getGenericCodeDTO(null);
         $genericCodeDTO->copyFromDomain($genericCode);
         $codeTypeDTO = DTOFactory::getCodeTypeDTO();
         $codeTypeDTO->copyFromDomain($genericCode->getCodeType());
@@ -38,7 +38,7 @@ class GenericCodeController extends BaseController {
 
         $mapper = new DTOMapper();
 
-        $gcDTO = $mapper->map($param, DTOFactory::getGenericCodeDTO());
+        $gcDTO = $mapper->map($param, DTOFactory::getGenericCodeDTO(null));
 
         if (isset($gcDTO->codeType) && isset($gcDTO->codeType->id)) {
             array_push($filters, Property::getInstance("codeType", $gcDTO->codeType->id));
@@ -54,7 +54,7 @@ class GenericCodeController extends BaseController {
         //Copy to DTO
         $genericCodeDTOList = array();
         foreach ($genericCodeList as $gc) {
-            $gcDTO = DTOFactory::getGenericCodeDTO();
+            $gcDTO = DTOFactory::getGenericCodeDTO(null);
             $gcDTO->copyFromDomain($gc);
             $codeTypeDTO = DTOFactory::getCodeTypeDTO();
             $codeTypeDTO->copyFromDomain($gc->getCodeType());
@@ -68,7 +68,7 @@ class GenericCodeController extends BaseController {
         $param = $request->getParams();
         $this->validateGenericCodeOnSave($param);
         $mapper = new DTOMapper();
-        $gcDTO = $mapper->map($param, DTOFactory::getGenericCodeDTO());
+        $gcDTO = $mapper->map($param, DTOFactory::getGenericCodeDTO(null));
         $genericCode = EntityFactory::getGenericCode();
         $this->daoFactory->getGenericCodeDAO()->save($this->copyGenericCode($gcDTO, $genericCode));
         return $response->withJson($this->getById($genericCode->getId()));
@@ -78,7 +78,7 @@ class GenericCodeController extends BaseController {
         $param = $request->getParams();
         $this->validateGenericCodeOnUpdate($param);
         $mapper = new DTOMapper();
-        $gcDTO = $mapper->map($param, DTOFactory::getGenericCodeDTO());
+        $gcDTO = $mapper->map($param, DTOFactory::getGenericCodeDTO(null));
         //update entry
         $genericCode = $this->daoFactory->getGenericCodeDAO()->findById($gcDTO->id);
         $this->daoFactory->getGenericCodeDAO()->update($this->copyGenericCode($gcDTO, $genericCode));

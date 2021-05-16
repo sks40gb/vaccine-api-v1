@@ -3,10 +3,11 @@
 // DIC configuration
 
 /** @var Pimple\Container $container */
-use Ziletech\Middleware\OptionalAuth;
+
 use League\Fractal\Manager;
 use League\Fractal\Serializer\ArraySerializer;
-use \Ziletech\Middleware\AdminAuth;
+use Ziletech\Middleware\AdminAuth;
+use Ziletech\Middleware\OptionalAuth;
 
 $container = $app->getContainer();
 

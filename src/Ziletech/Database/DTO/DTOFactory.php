@@ -10,10 +10,6 @@ class DTOFactory {
         return new UserDTO($user);
     }
 
-    public static function getUserTreeDTO($userTree = null): UserTreeDTO {
-        return new UserTreeDTO($userTree);
-    }
-
     public static function getContactUsDTO(): ContactUsDTO {
         return new ContactUsDTO();
     }
@@ -34,6 +30,10 @@ class DTOFactory {
         return new SettingDTO();
     }
 
+    /**
+     * @param GenericCode|null $genericCode
+     * @return GenericCodeDTO
+     */
     public static function getGenericCodeDTO(?GenericCode $genericCode): GenericCodeDTO {
         return new GenericCodeDTO($genericCode);
     }
