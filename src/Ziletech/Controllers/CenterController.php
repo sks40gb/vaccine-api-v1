@@ -17,19 +17,8 @@ class CenterController extends BaseController {
     public function save(Request $request, Response $response, array $args) {
         $param = $request->getParams();
         $mapper = new DTOMapper();
-
         $centersDTO = $mapper->map($param, DTOFactory::getCentersDTO());
-
-        foreach ($centersDTO->getCenters() as $centerDTO) {
-            $center = $this->daoFactory->getCenterDAO()->getByCenterId($centerDTO->getCenterId());
-            if ($center == null) {
-                $center = EntityFactory::getCenter();
-                $centerDTO->copyToDomain($center);
-                $center = $this->daoFactory->getCenterDAO()->save($center);
-            }
-            $this->saveSession($center, $centerDTO);
-
-        }
+        $this->saveCenter($centersDTO);
         return $response->withJson($centersDTO);
     }
 
@@ -53,6 +42,22 @@ class CenterController extends BaseController {
             $slot->setSession($session);
             $slot->setDuration($time);
             $this->daoFactory->getSlotDAO()->save($slot);
+        }
+    }
+
+    /**
+     * @param object $centersDTO
+     */
+    public function saveCenter(object $centersDTO): void {
+        foreach ($centersDTO->getCenters() as $centerDTO) {
+            $center = $this->daoFactory->getCenterDAO()->getByCenterId($centerDTO->getCenterId());
+            if ($center == null) {
+                $center = EntityFactory::getCenter();
+                $centerDTO->copyToDomain($center);
+                $center = $this->daoFactory->getCenterDAO()->save($center);
+            }
+            $this->saveSession($center, $centerDTO);
+
         }
     }
 }
