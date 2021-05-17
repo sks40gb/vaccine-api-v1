@@ -30,15 +30,18 @@ class CenterController extends BaseController {
     }
 
     public function saveFromThirdParty(Request $request, Response $response, array $args): Response {
-        $trackerService = new TrackerService($this->daoFactory, ExecutionTrackerDAO::THIRD_PARTY_CENTER);
-        $trackerService->autoCloseConnection();
-        if ($trackerService->getActiveTracker() == null) {
-            $trackerService->start();
-            $this->executeForDisticts();
-            $trackerService->close();
-            return $response->withJson(["message" => "Execution completed successfully."]);
+        while(true) {
+            sleep(3);
+            $trackerService = new TrackerService($this->daoFactory, ExecutionTrackerDAO::THIRD_PARTY_CENTER);
+            $trackerService->autoCloseConnection();
+            if ($trackerService->getActiveTracker() == null) {
+                $trackerService->start();
+                $this->executeForDisticts();
+                $trackerService->close();
+                //return $response->withJson(["message" => "Execution completed successfully."]);
+            }
         }
-        return $response->withJson(["message" => "Already running"]);
+        return $response->withJson(["message" => "Execution completed successfully."]);
     }
 
     private function executeForDisticts(): void {
