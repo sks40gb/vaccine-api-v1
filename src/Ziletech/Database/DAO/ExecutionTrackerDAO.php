@@ -14,6 +14,6 @@ class ExecutionTrackerDAO extends BaseDAO {
     }
 
     public function getActiveTracker($type): ?ExecutionTracker {
-        return $this->get(["type" => $type, "completed" => false]);
+        return $this->get(["category" => $type, "completed" => false]);
     }
 }
