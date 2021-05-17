@@ -4,6 +4,7 @@ namespace Ziletech\Controllers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Ziletech\Database\DAO\ExecutionTrackerDAO;
 use Ziletech\Database\DTO\CenterDTO;
 use Ziletech\Database\DTO\CentersDTO;
 use Ziletech\Database\DTO\DTOFactory;
@@ -12,6 +13,7 @@ use Ziletech\Database\DTO\SessionDTO;
 use Ziletech\Database\Entity\Center;
 use Ziletech\Database\Entity\EntityFactory;
 use Ziletech\Database\Entity\Session;
+use Ziletech\Services\Common\TrackerService;
 
 class CenterController extends BaseController {
 
@@ -24,11 +26,17 @@ class CenterController extends BaseController {
     }
 
     public function saveFromThirdParty(Request $request, Response $response, array $args): Response {
-        $mapper = new DTOMapper();
-        $param = file_get_contents("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=265&date=17-05-2021");
-        $centersDTO = $mapper->mapString($param, DTOFactory::getCentersDTO());
-        $this->saveCenters($centersDTO);
-        return $response->withJson($param);
+        $trackerService = new TrackerService($this->daoFactory, ExecutionTrackerDAO::THIRD_PARTY_CENTER);
+        if($trackerService->getActiveTracker() == null){
+            $trackerService->start();
+            $mapper = new DTOMapper();
+            $param = file_get_contents("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=265&date=17-05-2021");
+            $centersDTO = $mapper->mapString($param, DTOFactory::getCentersDTO());
+            $this->saveCenters($centersDTO);
+            $trackerService->close();
+            return $response->withJson(["message"=> "Execution completed successfully."]);
+        }
+        return $response->withJson(["message"=> "Already running"]);
     }
 
     public function saveCenters(CentersDTO $centersDTO): void {
@@ -45,7 +53,7 @@ class CenterController extends BaseController {
 
     private function saveSessions(Center $center, CenterDTO $centerDTO): void {
         foreach ($centerDTO->getSessions() as $sessionDTO) {
-            if ($sessionDTO->getAvailableCapacity() == 0) {
+            if ($sessionDTO->getAvailableCapacity() != 0) {
                 $this->closeSession($sessionDTO);
             } else {
                 $this->saveSession($sessionDTO, $center);

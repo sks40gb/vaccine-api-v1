@@ -27,8 +27,8 @@ class DAOFactory {
         return new CodeTypeDAO($this->entityManager);
     }
 
-    public function getGenericCodeDAO(): GenericCodeDAO {
-        return new GenericCodeDAO($this->entityManager);
+    public function getGenericCodeDAO(): ExecutionTrackerDAO {
+        return new ExecutionTrackerDAO($this->entityManager);
     }
 
     public function getCenterDAO(): CenterDAO {
@@ -41,6 +41,10 @@ class DAOFactory {
 
     public function getSlotDAO(): SlotDAO {
         return new SlotDAO($this->entityManager);
+    }
+
+    public function getExecutionTrackerDAO(): ExecutionTrackerDAO {
+        return new ExecutionTrackerDAO($this->entityManager);
     }
 
 }

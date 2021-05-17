@@ -45,4 +45,8 @@ class EntityFactory {
         return new Slot();
     }
 
+    public static function getExecutionTracker(): ExecutionTracker {
+        return new ExecutionTracker();
+    }
+
 }

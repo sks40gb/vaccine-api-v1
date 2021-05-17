@@ -77,12 +77,12 @@ $app->group('/api', function () use ($app) {
         $this->get('/auth/current/refresh', AuthController::class . ':refreshCurrentUser');
 
         $this->post('/center', CenterController::class . ':save');
-        $this->post('/center/third-party', CenterController::class . ':saveFromThirdParty');
 
     })->add($userAuth);
 
     // Anonymous Routes
     $app->group('', function() use ($app) {
+        $this->get('/center/third-party', CenterController::class . ':saveFromThirdParty');
         $this->post('/dropdown/common', DropdownController::class . ':codeTypeByPost');
         $this->post('/auth/sign-in', AuthController::class . ':login')->setName('auth.login');
         $this->post('/auth/request-pass', AuthController::class . ':requestPassword')->setName('auth.requestPassword');
