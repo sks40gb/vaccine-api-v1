@@ -7,6 +7,8 @@ use Ziletech\Database\Entity\GenericCode;
 
 class GenericCodeDAO extends BaseDAO {
 
+    public const VACCINE_CENTER_URL = "VACCINE_CENTER_URL";
+
     public function __construct($entityManager) {
         parent::__construct($entityManager, GenericCode::class);
     }

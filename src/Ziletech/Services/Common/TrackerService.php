@@ -23,6 +23,8 @@ class TrackerService {
 
     private $type;
 
+    private const TIMEOUT_SECONDS = 60;
+
     public function __construct(DAOFactory $daoFactory, $type) {
         $this->executionTrackerDAO = $daoFactory->getExecutionTrackerDAO();
         $this->type = $type;
@@ -43,10 +45,20 @@ class TrackerService {
         $this->tracker = $this->saveTacker();
     }
 
-    public function closeOpenExecutions() {
+    public function autoCloseConnection() {
         $tracker = $this->executionTrackerDAO->getActiveTracker(ExecutionTrackerDAO::THIRD_PARTY_CENTER);
-        $tracker->setCompleted(true);
-        $this->executionTrackerDAO->save($tracker);
+        if ($tracker != null) {
+            $currentDate = new \DateTime();
+            $diff = $currentDate->diff($tracker->getExecutedAt());// > self::TIMEOUT_SECONDS
+            $daysInSecs = $diff->format('%r%a') * 24 * 60 * 60;
+            $hoursInSecs = $diff->h * 60 * 60;
+            $minsInSecs = $diff->i * 60;
+            $seconds = $daysInSecs + $hoursInSecs + $minsInSecs + $diff->s;
+            if ($seconds > self::TIMEOUT_SECONDS) {
+                $tracker->setCompleted(true);
+                $this->executionTrackerDAO->save($tracker);
+            }
+        }
     }
 
     private function saveTacker(): ExecutionTracker {
