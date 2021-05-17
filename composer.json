@@ -36,12 +36,6 @@
           "Ziletech\\": "src/Ziletech"
       }
     },
-    "autoload-dev": {
-        "classmap": ["database/"],
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
     "config": {
         "process-timeout" : 0,
         "php": "5.6"
@@ -49,10 +43,7 @@
     "scripts": {
         "post-install-cmd": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env'); \""
-        ],
-        "start": "php -S localhost:8080 -t public public/index.php",
-        "test": "vendor/bin/phpunit",
-        "refresh-database": "php vendor/bin/phinx rollback -t0; php vendor/bin/phinx migrate; php vendor/bin/phinx seed:run"
+        ]
     }
 
 }
