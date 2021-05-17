@@ -77,6 +77,7 @@ $app->group('/api', function () use ($app) {
         $this->get('/auth/current/refresh', AuthController::class . ':refreshCurrentUser');
 
         $this->post('/center', CenterController::class . ':save');
+        $this->post('/center/third-party', CenterController::class . ':saveFromThirdParty');
 
     })->add($userAuth);
 
@@ -105,7 +106,7 @@ $app->get('/[{name}]', function (Request $request, Response $response, array $ar
 $app->add(function ($request, $response, $next) {
     $response = $next($request, $response);
 
-    if ($response->getHeaderLine('Content-type') == 'application/json;charset=utf-8') {
+    if ( $response->getHeaderLine('Content-type') == 'application/json' || $response->getHeaderLine('Content-type') == 'application/json;charset=utf-8') {
         $content = (string) $response->getBody();
         $newBody = new Body(fopen('php://temp', 'r+'));
         $newBody->write(preg_replace('/,\s*"[^"]+":null|"[^"]+":null,?/', '', $content));
