@@ -33,7 +33,7 @@ class TrackerService {
     public function start() {
         $this->startTime = microtime(true);
         $this->tracker = EntityFactory::getExecutionTracker();
-        $this->tracker->setType($this->type);
+        $this->tracker->setCategory($this->type);
         $this->tracker->setExecutedAt(new \DateTime());
         $this->tracker = $this->saveTacker();
     }

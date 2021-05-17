@@ -14,8 +14,8 @@ class ExecutionTracker extends BaseEntity {
     /** @Id @Column(type="integer") @GeneratedValue * */
     protected $id;
 
-    /** @Column(type="string", name="type") * */
-    protected $type;
+    /** @Column(type="string", name="category") * */
+    protected $category;
 
     /** @Column(type="datetime", name="executed_at") * */
     protected $executedAt;
@@ -49,15 +49,15 @@ class ExecutionTracker extends BaseEntity {
     /**
      * @return mixed
      */
-    public function getType() {
-        return $this->type;
+    public function getCategory() {
+        return $this->category;
     }
 
     /**
-     * @param mixed $type
+     * @param mixed $category
      */
-    public function setType($type): void {
-        $this->type = $type;
+    public function setCategory($category): void {
+        $this->category = $category;
     }
 
     /**
