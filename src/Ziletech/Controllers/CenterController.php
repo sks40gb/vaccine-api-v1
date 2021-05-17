@@ -16,6 +16,7 @@ use Ziletech\Database\Entity\CodeTypeConstant;
 use Ziletech\Database\Entity\EntityFactory;
 use Ziletech\Database\Entity\Session;
 use Ziletech\Services\Common\GenericCodeService;
+use Ziletech\Services\Common\TimeService;
 use Ziletech\Services\Common\TrackerService;
 
 class CenterController extends BaseController {
@@ -64,8 +65,7 @@ class CenterController extends BaseController {
         return $url;
     }
 
-    public
-    function saveCenters(CentersDTO $centersDTO): void {
+    public function saveCenters(CentersDTO $centersDTO): void {
         foreach ($centersDTO->getCenters() as $centerDTO) {
             $center = $this->daoFactory->getCenterDAO()->getByCenterId($centerDTO->getCenterId());
             if ($center == null) {
@@ -77,10 +77,9 @@ class CenterController extends BaseController {
         }
     }
 
-    private
-    function saveSessions(Center $center, CenterDTO $centerDTO): void {
+    private function saveSessions(Center $center, CenterDTO $centerDTO): void {
         foreach ($centerDTO->getSessions() as $sessionDTO) {
-            if ($sessionDTO->getAvailableCapacity() != 0) {
+            if ($sessionDTO->getAvailableCapacity() == 0) {
                 $this->closeSession($sessionDTO);
             } else {
                 $this->saveSession($sessionDTO, $center);
@@ -88,12 +87,13 @@ class CenterController extends BaseController {
         }
     }
 
-    private
-    function closeSession(SessionDTO $sessionDTO) {
+    private function closeSession(SessionDTO $sessionDTO) {
         $sessions = $this->daoFactory->getSessionDAO()->findOpenedSessions($sessionDTO->getSessionId());
         foreach ($sessions as $session) {
             $session->setClosedAt(new \DateTime());
             $session->setClosed(true);
+            $seconds = TimeService::getDiffInSeconds($session->getCreatedAt(), $session->getClosedAt());
+            $session->setBookingTime($seconds);
             $this->daoFactory->getSessionDAO()->update($session);
         }
     }
@@ -102,8 +102,7 @@ class CenterController extends BaseController {
      * @param SessionDTO $sessionDTO
      * @param Center $center
      */
-    private
-    function saveSession(SessionDTO $sessionDTO, Center $center): void {
+    private function saveSession(SessionDTO $sessionDTO, Center $center): void {
         $sessions = $this->daoFactory->getSessionDAO()->findOpenedSessions($sessionDTO->getSessionId());
         if (sizeof($sessions) == 0) {
             $session = EntityFactory::getSession();
@@ -116,8 +115,7 @@ class CenterController extends BaseController {
         }
     }
 
-    private
-    function saveSlots(Session $session, SessionDTO $sessionDTO): void {
+    private function saveSlots(Session $session, SessionDTO $sessionDTO): void {
         foreach ($sessionDTO->getSlots() as $time) {
             $slot = EntityFactory::getSlot();
             $slot->setSession($session);

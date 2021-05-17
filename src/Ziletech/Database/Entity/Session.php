@@ -43,6 +43,9 @@ class Session extends BaseEntity {
     /** @Column(type="boolean", name="closed") * */
     protected $closed;
 
+    /** @Column(type="boolean", name="booking_time") * */
+    protected $bookingTime;
+
     /**
      * @ManyToOne(targetEntity="Center")
      * @JoinColumn(name="center_id", referencedColumnName="center_id")
@@ -243,6 +246,20 @@ class Session extends BaseEntity {
 
     public function __toString() {
         return "Session[id: $this->sessionId]";
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBookingTime() {
+        return $this->bookingTime;
+    }
+
+    /**
+     * @param mixed $bookingTime
+     */
+    public function setBookingTime($bookingTime): void {
+        $this->bookingTime = $bookingTime;
     }
 
 }

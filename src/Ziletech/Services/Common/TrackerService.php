@@ -49,11 +49,7 @@ class TrackerService {
         $tracker = $this->executionTrackerDAO->getActiveTracker(ExecutionTrackerDAO::THIRD_PARTY_CENTER);
         if ($tracker != null) {
             $currentDate = new \DateTime();
-            $diff = $currentDate->diff($tracker->getExecutedAt());// > self::TIMEOUT_SECONDS
-            $daysInSecs = $diff->format('%r%a') * 24 * 60 * 60;
-            $hoursInSecs = $diff->h * 60 * 60;
-            $minsInSecs = $diff->i * 60;
-            $seconds = $daysInSecs + $hoursInSecs + $minsInSecs + $diff->s;
+            $seconds = TimeService::getDiffInSeconds($tracker->getExecutedAt(), $currentDate);
             if ($seconds > self::TIMEOUT_SECONDS) {
                 $tracker->setCompleted(true);
                 $this->executionTrackerDAO->save($tracker);
