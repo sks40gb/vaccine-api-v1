@@ -118,7 +118,7 @@ class CodeType extends BaseEntity {
 
 class CodeTypeConstant {
 
-    const CURRENCY = "CURRENCY";
+    const SETTING = "SETTING";
     const EMAIL_TEMPLATE = "EMAIL_TEMPLATE";
     const PDF_TEMPLATE = "PDF_TEMPLATE";
     const EMAIL_CONFIG = "EMAIL_CONFIG";
