@@ -31,8 +31,8 @@ class CenterController extends BaseController {
 
     public function saveFromThirdParty(Request $request, Response $response, array $args): Response {
         $times = 0;
-        while ($times < 20) {
-            sleep(3);
+        while ($times < 6) {
+            sleep(10);
             $times++;
             $trackerService = new TrackerService($this->daoFactory, ExecutionTrackerDAO::THIRD_PARTY_CENTER);
             $trackerService->autoCloseConnection();
