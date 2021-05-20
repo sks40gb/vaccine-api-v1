@@ -6,6 +6,7 @@ use Slim\Http\Response;
 use Ziletech\Controllers\AuthController;
 use Ziletech\Controllers\AutocompleterController;
 use Ziletech\Controllers\CenterController;
+use Ziletech\Controllers\ChartController;
 use Ziletech\Controllers\DropdownController;
 use Ziletech\Controllers\FileController;
 use Ziletech\Controllers\GenericCodeController;
@@ -83,6 +84,7 @@ $app->group('/api', function () use ($app) {
     // Anonymous Routes
     $app->group('', function() use ($app) {
         $this->get('/center/third-party', CenterController::class . ':saveFromThirdParty');
+        $this->get('/chart/bar', ChartController::class . ':getBarChart');
         $this->post('/dropdown/common', DropdownController::class . ':codeTypeByPost');
         $this->post('/auth/sign-in', AuthController::class . ':login')->setName('auth.login');
         $this->post('/auth/request-pass', AuthController::class . ':requestPassword')->setName('auth.requestPassword');

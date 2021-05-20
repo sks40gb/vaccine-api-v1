@@ -46,13 +46,15 @@ class TrackerService {
     }
 
     public function autoCloseConnection() {
-        $tracker = $this->executionTrackerDAO->getActiveTracker(ExecutionTrackerDAO::THIRD_PARTY_CENTER);
-        if ($tracker != null) {
-            $currentDate = new \DateTime();
-            $seconds = TimeService::getDiffInSeconds($tracker->getExecutedAt(), $currentDate);
-            if ($seconds > self::TIMEOUT_SECONDS) {
-                $tracker->setCompleted(true);
-                $this->executionTrackerDAO->save($tracker);
+        $trackers = $this->executionTrackerDAO->getActiveTrackers(ExecutionTrackerDAO::THIRD_PARTY_CENTER);
+        foreach ($trackers as $tracker){
+            if ($tracker != null) {
+                $currentDate = new \DateTime();
+                $seconds = TimeService::getDiffInSeconds($tracker->getExecutedAt(), $currentDate);
+                if ($seconds > self::TIMEOUT_SECONDS) {
+                    $tracker->setCompleted(true);
+                    $this->executionTrackerDAO->save($tracker);
+                }
             }
         }
     }
@@ -61,8 +63,8 @@ class TrackerService {
         return $this->executionTrackerDAO->save($this->tracker);
     }
 
-    public function getActiveTracker(): ?ExecutionTracker {
-        return $this->executionTrackerDAO->getActiveTracker(ExecutionTrackerDAO::THIRD_PARTY_CENTER);
+    public function getActiveTrackers() {
+        return $this->executionTrackerDAO->getActiveTrackers(ExecutionTrackerDAO::THIRD_PARTY_CENTER);
     }
 
 

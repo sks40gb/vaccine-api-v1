@@ -13,7 +13,7 @@ class ExecutionTrackerDAO extends BaseDAO {
         parent::__construct($entityManager, ExecutionTracker::class);
     }
 
-    public function getActiveTracker($type): ?ExecutionTracker {
-        return $this->get(["category" => $type, "completed" => false]);
+    public function getActiveTrackers($type) {
+        return $this->find(["category" => $type, "completed" => false]);
     }
 }
