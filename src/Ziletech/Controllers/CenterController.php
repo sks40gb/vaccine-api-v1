@@ -36,12 +36,12 @@ class CenterController extends BaseController {
             $times++;
             $trackerService = new TrackerService($this->daoFactory, ExecutionTrackerDAO::THIRD_PARTY_CENTER);
             $trackerService->autoCloseConnection();
-            if (sizeof($trackerService->getActiveTrackers()) == 0) {
+            //if (sizeof($trackerService->getActiveTrackers()) == 0) {
                 $trackerService->start();
                 $this->executeForDisticts();
                 $trackerService->close();
                 //return $response->withJson(["message" => "Execution completed successfully."]);
-            }
+            //}
         }
         return $response->withJson(["message" => "Execution completed successfully."]);
     }
