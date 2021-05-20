@@ -31,17 +31,19 @@ class CenterController extends BaseController {
 
     public function saveFromThirdParty(Request $request, Response $response, array $args): Response {
         $times = 0;
-        while ($times < 6) {
-            sleep(10);
+        $iteration = 1;
+        $sleepingTime = 60/$iteration;
+        while ($times < $iteration) {
+            sleep($sleepingTime);
             $times++;
             $trackerService = new TrackerService($this->daoFactory, ExecutionTrackerDAO::THIRD_PARTY_CENTER);
             $trackerService->autoCloseConnection();
-            //if (sizeof($trackerService->getActiveTrackers()) == 0) {
+            if (sizeof($trackerService->getActiveTrackers()) == 0) {
                 $trackerService->start();
                 $this->executeForDisticts();
                 $trackerService->close();
                 //return $response->withJson(["message" => "Execution completed successfully."]);
-            //}
+            }
         }
         return $response->withJson(["message" => "Execution completed successfully."]);
     }
