@@ -60,7 +60,6 @@ $app->group('/api', function () use ($app) {
 
         //Dropdown
         $this->get('/dropdown/type/{code}', DropdownController::class . ':type');
-        $this->get('/dropdown/codetype/{code}', DropdownController::class . ':type');
         $this->get('/dropdown/genericcode/bycodetype/{code}', DropdownController::class . ':findGeneriCodeByCodeType');
 
         //file
@@ -84,6 +83,7 @@ $app->group('/api', function () use ($app) {
     // Anonymous Routes
     $app->group('', function() use ($app) {
         $this->get('/center/third-party', CenterController::class . ':saveFromThirdParty');
+        $this->get('/dropdown/codetype/{code}', DropdownController::class . ':type');
         $this->get('/chart/bar', ChartController::class . ':getBarChart');
         $this->post('/dropdown/common', DropdownController::class . ':codeTypeByPost');
         $this->post('/auth/sign-in', AuthController::class . ':login')->setName('auth.login');

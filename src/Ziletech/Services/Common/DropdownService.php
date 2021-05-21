@@ -22,8 +22,8 @@ class DropdownService {
                 return $this->getUsers();
             case "USER_NAME":
                 return $this->getUserNameList();
-            case "COUNTRY":
-                return $this->getCountries();
+            case "DISTRICT":
+                return $this->getDistrict();
             case "USER_STATUS":
                 return $this->getUserStatus();
             default :
@@ -34,7 +34,7 @@ class DropdownService {
 
     private function getUsers() {
         $users = $this->daoFactory->getUserDAO()->findAll();
-        $items = $this->getArrayWithEmpyItem();
+        $items = $this->getArrayWithEmptyItem();
         foreach ($users as $user) {
             $model = new KeyValue($user->getId(), $user->getUserName());
             array_push($items, $model);
@@ -44,7 +44,7 @@ class DropdownService {
 
     private function getUserNameList(): array {
         $users = $this->daoFactory->getUserDAO()->findAll();
-        $items = $this->getArrayWithEmpyItem();
+        $items = $this->getArrayWithEmptyItem();
         foreach ($users as $user) {
             $model = new KeyValue($user->getUserName(), $user->getUserName());
             array_push($items, $model);
@@ -60,9 +60,9 @@ class DropdownService {
         return $statusList;
     }
 
-    private function getCountries(): array {
-        $codeTypeCountry = $this->daoFactory->getCodeTypeDAO()->getByCode("COUNTRY");
-        $items = $this->getArrayWithEmpyItem();
+    private function getDistrict(): array {
+        $codeTypeCountry = $this->daoFactory->getCodeTypeDAO()->getByCode("DISTRICT");
+        $items = $this->getArrayWithEmptyItem();
         foreach ($codeTypeCountry->getGenericCodes() as $country) {
             $model = new KeyValue($country->getCode(), $country->getDescription());
             array_push($items, $model);
@@ -70,7 +70,7 @@ class DropdownService {
         return $items;
     }
 
-    private function getArrayWithEmpyItem(): array {
+    private function getArrayWithEmptyItem(): array {
         $items = array();
         $model = new KeyValue("", "-- Select --");
         array_push($items, $model);
